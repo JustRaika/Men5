@@ -1,5 +1,10 @@
+precision mediump float;
+
+uniform mat4 projectionMatrix;
+uniform mat4 modelViewMatrix;
 attribute vec3 position;
 
 void main() {
-  gl_Position = vec4(position, 1.0);
+  // position, modelViewMatrix, projectionMatrix sind bereits verfügbar
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
