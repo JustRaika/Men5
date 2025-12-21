@@ -43,9 +43,13 @@ function init() {
 	// Add Light
 	addLight();
 
-    // Handle window resize
+    // Handle resize
     window.addEventListener('resize', onResize, false);
     onResize();
+
+	// Handle scroll
+	window.addEventListener('scroll', onScroll, false);
+	onScroll();
 
 	// render loop
     clock = new THREE.Clock();
@@ -94,6 +98,23 @@ function onResize() {
     // Update camera aspect ratio and projection matrix
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
+}
+
+// Get scroll position as a fraction
+function onScroll() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollFraction = docHeight ? scrollTop / docHeight : 0;
+    console.log(scrollFraction.toFixed(2)); // prints with 2 decimals
+	rotateCamera(scrollFraction);
+}
+
+// Test Scroll Event
+function rotateCamera(scrollFraction) {
+	const angle = scrollFraction * Math.PI * 2;
+	camera.position.x = Math.sin(angle) * 4;
+	camera.position.z = Math.cos(angle) * 4;
+	camera.lookAt(0, 0, 0);
 }
 
 init();
