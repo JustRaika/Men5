@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import vertexShader from './test.vert?raw';
-import fragmentShader from './test.frag?raw';
+import vertexShader from './zebra.vert?raw';
+import fragmentShader from './zebra.frag?raw';
 import { sharedUniforms } from '../../uniforms.js';
 
-export function createTestMaterial() {
+export function createZebraMaterial() {
     return new THREE.ShaderMaterial({
-        name: 'Test',
+        name: 'Zebra',
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms
