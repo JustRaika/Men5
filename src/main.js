@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
+// Import custom shader materials
+import { createTestMaterial } from './shaders/materials/test/material.js';
+
 const canvas = document.querySelector('#three');
 
 let scene, renderer, camera, clock;
@@ -60,8 +63,13 @@ function addAssets() {
 	// Add a simple Sphere
 	const geometry = new THREE.SphereGeometry( 1, 32, 32 );
 	const material = new THREE.MeshStandardMaterial( { color: 0x00ff00 } );
+	const testMaterial = createTestMaterial();
 	sphere = new THREE.Mesh( geometry, material );
+	let sphereShader = new THREE.Mesh( geometry, testMaterial );
 	scene.add( sphere );
+	scene.add( sphereShader );
+	sphere.position.x = -1.5;
+	sphereShader.position.x = 1.5;
 }
 
 function addLight() {
