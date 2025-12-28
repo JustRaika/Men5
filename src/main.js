@@ -5,6 +5,16 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { sharedUniforms } from './shaders/uniforms.js';
 import { createTestMaterial } from './shaders/materials/test/material.js';
 import { createZebraMaterial } from './shaders/materials/zebra/material.js';
+import { createPositionMaterial } from './shaders/materials/position/material.js';
+import { createNormalMaterial } from './shaders/materials/normal/material.js';
+
+// Array to store materials
+const materials = [
+	createNormalMaterial(),
+	createTestMaterial(),
+	createZebraMaterial(),
+	createPositionMaterial(),
+];
 
 const canvas = document.querySelector('#three');
 
@@ -64,14 +74,20 @@ function init() {
 function addAssets() {
 	// Add a simple Sphere
 	const geometry = new THREE.SphereGeometry( 1, 32, 32 );
-	const material = new THREE.MeshStandardMaterial( { color: 0x00ff00 } );
-	const testMaterial = createZebraMaterial();
-	sphere = new THREE.Mesh( geometry, material );
+	const normalMaterial = createNormalMaterial();
+	const testMaterial = createPositionMaterial();
+	sphere = new THREE.Mesh( geometry, normalMaterial );
 	let sphereShader = new THREE.Mesh( geometry, testMaterial );
-	scene.add( sphere );
-	scene.add( sphereShader );
+	// scene.add( sphere );
+	// scene.add( sphereShader );
 	sphere.position.x = -1.5;
 	sphereShader.position.x = 1.5;
+
+	for (let mat of materials) {
+		let sphereInstance = new THREE.Mesh( geometry, mat );
+		sphereInstance.position.x = materials.indexOf(mat) * 2.5;
+		scene.add( sphereInstance );
+	}
 }
 
 function addLight() {
@@ -125,13 +141,13 @@ function onScroll() {
     const scrollFraction = docHeight ? scrollTop / docHeight : 0;
 
 	// Print scroll fraction
-    console.log(scrollFraction.toFixed(2)); // prints with 2 decimals
+    // console.log(scrollFraction.toFixed(2)); // prints with 2 decimals
 	
 	// update uniform
 	sharedUniforms.uScroll.value = scrollTop;
 
 	// rotate camera based on scroll
-	rotateCamera(scrollFraction);
+	scrollSideways(scrollFraction);
 }
 
 // Test Scroll Event
@@ -140,6 +156,12 @@ function rotateCamera(scrollFraction) {
 	camera.position.x = Math.sin(angle) * 4;
 	camera.position.z = Math.cos(angle) * 4;
 	camera.lookAt(0, 0, 0);
+}
+
+// Scroll Event -> scroll sideways
+function scrollSideways(scrollFraction) {
+	const maxScrollX = (materials.length - 1) * 2.5;
+	camera.position.x = scrollFraction * maxScrollX;
 }
 
 init();
