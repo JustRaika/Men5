@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import vertexShader from './light.vert?raw';
-import fragmentShader from './light.frag?raw';
+import vertexShader from './vertex.glsl?raw';
+import fragmentShader from './fragment.glsl?raw';
 import { sharedUniforms } from '../../uniforms.js';
 
 export function createLightMaterial() {
