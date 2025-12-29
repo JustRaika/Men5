@@ -29,6 +29,18 @@ let scene, renderer, camera, clock;
 let stats;
 let sphere;
 
+// State variables
+let mousePos = new THREE.Vector2();
+let mouseOnCanvas = true;
+let timeOnPause = false;
+let elapsedTimeOnPause = 0;
+let timePaused = 0;
+
+// interaction variables
+let sharedRaycasterSelection;
+let sphereRotating = false;
+let sphereRotationStartPos = 0;
+
 // Create a loading manager (Used for tracking loading progress of external assets)
 const loadingManager = new THREE.LoadingManager();
 loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
@@ -74,6 +86,13 @@ function init() {
 	window.addEventListener('scroll', onScroll, false);
 	onScroll();
 
+	// Handle click
+	canvas.addEventListener('mouseenter', () => { mouseOnCanvas = true; });
+	canvas.addEventListener('mouseleave', () => { mouseOnCanvas = false; });
+	window.addEventListener('mousedown', onClickStart, false);
+	window.addEventListener('mouseup', onClickEnd, false);
+	window.addEventListener('mousemove', onMouseMove, false);
+
 	// render loop
     clock = new THREE.Clock();
     renderer.setAnimationLoop(render);
@@ -83,13 +102,14 @@ function addAssets() {
 	// Add a simple Sphere
 	const geometry = new THREE.SphereGeometry( 1, 32, 32 );
 	const normalMaterial = createNormalMaterial();
-	const testMaterial = createPositionMaterial();
-	sphere = new THREE.Mesh( geometry, normalMaterial );
-	let sphereShader = new THREE.Mesh( geometry, testMaterial );
+
+	// sphere = new THREE.Mesh( geometry, normalMaterial );
+	// const testMaterial = createPositionMaterial();
+	// let sphereShader = new THREE.Mesh( geometry, testMaterial );
 	// scene.add( sphere );
 	// scene.add( sphereShader );
-	sphere.position.x = -1.5;
-	sphereShader.position.x = 1.5;
+	// sphere.position.x = -1.5;
+	// sphereShader.position.x = 1.5;
 
 	for (let mat of materials) {
 		let sphereInstance = new THREE.Mesh( geometry, mat );
@@ -109,18 +129,65 @@ function addLight() {
 }
 
 function render() {
-    // Get delta time (in seconds) from the clock
-    const deltaTime = clock.getDelta();
-
-	// Update uniforms
-	sharedUniforms.u_time.value = clock.getElapsedTime();
-	// console.log(clock.getElapsedTime().toFixed(4));
+	// Update time (uniform)
+	timeHandler();
 
     // Update
     stats.update();
 
     // Render the scene
     renderer.render(scene, camera);
+}
+
+function timeHandler() {
+	if (!timeOnPause) {
+		const elapsedTime = clock.getElapsedTime() - timePaused;
+		sharedUniforms.u_time.value = elapsedTime;
+	}
+}
+
+function onClickStart() {
+	if (mouseOnCanvas) {
+		// reycast
+		let clickPos = new THREE.Vector2(
+			(mousePos.x / canvas.clientWidth) * 2 - 1, 
+			-(mousePos.y / canvas.clientHeight) * 2 + 1);
+		const raycaster = new THREE.Raycaster();
+		raycaster.setFromCamera( clickPos, camera );
+		const intersects = raycaster.intersectObjects( scene.children, false );
+
+		if (intersects.length > 0) {
+			sharedRaycasterSelection = intersects[0].object;
+			sphereRotationStartPos = mousePos.x;
+			sphereRotating = true;
+
+		} else {
+			// pause time
+			timeOnPause = true;
+			elapsedTimeOnPause = clock.getElapsedTime();
+		}
+	}
+}
+function onClickEnd() {
+	sphereRotating = false;
+
+	if (timeOnPause) {
+		timePaused += clock.getElapsedTime() - elapsedTimeOnPause;
+		timeOnPause = false;
+	}
+}
+
+function updateSphereRotation(eventX) {
+	let rotation = sphereRotationStartPos + eventX;
+	sharedRaycasterSelection.rotation.y = rotation * 0.01;
+}
+
+function onMouseMove(event) {
+	if (sphereRotating) {
+		updateSphereRotation(event.clientX)
+	}
+	mousePos = new THREE.Vector2(event.clientX, event.clientY);
+	
 }
 
 function onResize() {
