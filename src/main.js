@@ -9,6 +9,7 @@ import { createPositionMaterial } from './shaders/materials/position_4/material.
 import { createNormalMaterial } from './shaders/materials/normal_1/material.js';
 import { createDeformMaterial } from './shaders/materials/deform_5/material.js';
 import { createLightMaterial } from './shaders/materials/light_6/material.js';
+import { createParticleMaterial } from './shaders/materials/particles_7/material.js';	
 
 // Array to store materials
 const materials = [
@@ -18,6 +19,7 @@ const materials = [
 	createPositionMaterial(),
 	createDeformMaterial(),
 	createLightMaterial(),
+	createParticleMaterial(),
 ];
 
 const canvas = document.querySelector('#three'); // to which canvas we will render
