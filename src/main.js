@@ -3,12 +3,12 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 // Import custom shader materials
 import { sharedUniforms } from './shaders/uniforms.js';
-import { createFirstMaterial } from './shaders/materials/first/material.js';
-import { createZebraMaterial } from './shaders/materials/zebra/material.js';
-import { createPositionMaterial } from './shaders/materials/position/material.js';
-import { createNormalMaterial } from './shaders/materials/normal/material.js';
-import { createDeformMaterial } from './shaders/materials/deform/material.js';
-import { createLightMaterial } from './shaders/materials/light/material.js';
+import { createFirstMaterial } from './shaders/materials/first_2/material.js';
+import { createZebraMaterial } from './shaders/materials/zebra_3/material.js';
+import { createPositionMaterial } from './shaders/materials/position_4/material.js';
+import { createNormalMaterial } from './shaders/materials/normal_1/material.js';
+import { createDeformMaterial } from './shaders/materials/deform_5/material.js';
+import { createLightMaterial } from './shaders/materials/light_6/material.js';
 
 // Array to store materials
 const materials = [
@@ -20,8 +20,9 @@ const materials = [
 	createLightMaterial(),
 ];
 
-const canvas = document.querySelector('#three');
+const canvas = document.querySelector('#three'); // to which canvas we will render
 
+// Global variables to which we need access in multiple functions
 let scene, renderer, camera, clock;
 let stats;
 let sphere;
@@ -33,6 +34,7 @@ loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
     console.log(`Progress: ${progress.toFixed(2)}% (${itemsLoaded} of ${itemsTotal})`);
 };
 
+// setup function
 function init() {
 	
 	// Check if canvas is available
@@ -41,9 +43,9 @@ function init() {
 		return;
 	}
 
-	// Create base Elements
+	// Renderer draws the canvas
 	scene = new THREE.Scene();
-	renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+	renderer = new THREE.WebGLRenderer({ antialias: true, canvas }); // antialias for smoother edges
 	/* Shadows
 	renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.BasicShadowMap;
