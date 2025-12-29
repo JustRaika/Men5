@@ -105,7 +105,7 @@ function render() {
     const deltaTime = clock.getDelta();
 
 	// Update uniforms
-	sharedUniforms.uTime.value = clock.getElapsedTime();
+	sharedUniforms.u_time.value = clock.getElapsedTime();
 	// console.log(clock.getElapsedTime().toFixed(4));
 
     // Update
@@ -121,8 +121,8 @@ function onResize() {
     const height = Math.round(canvas.clientHeight * pixelRatio);
 
 	// update uniforms
-	sharedUniforms.uResolution.value.x = width;
-	sharedUniforms.uResolution.value.y = height;
+	sharedUniforms.u_resolution.value.x = width;
+	sharedUniforms.u_resolution.value.y = height;
 
     // Set renderer size and adjust canvas attributes
     renderer.setSize(width, height, false);
@@ -144,7 +144,7 @@ function onScroll() {
     // console.log(scrollFraction.toFixed(2)); // prints with 2 decimals
 	
 	// update uniform
-	sharedUniforms.uScroll.value = scrollTop;
+	sharedUniforms.u_scroll.value = scrollTop;
 
 	// rotate camera based on scroll
 	scrollSideways(scrollFraction);
