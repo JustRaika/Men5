@@ -15,3 +15,7 @@ A mentoring project in collaboration to write shaders and test them out.
 # Shader Knowlage
 - Uniforms, Vertex & Fragment
 - Setup and Include
+
+# ToDo
+- [ ] Kind of interactable for spheres
+- [ ] 
