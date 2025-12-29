@@ -20,8 +20,9 @@ const materials = [
 	createLightMaterial(),
 ];
 
-const canvas = document.querySelector('#three');
+const canvas = document.querySelector('#three'); // to which canvas we will render
 
+// Global variables to which we need access in multiple functions
 let scene, renderer, camera, clock;
 let stats;
 let sphere;
@@ -33,6 +34,7 @@ loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
     console.log(`Progress: ${progress.toFixed(2)}% (${itemsLoaded} of ${itemsTotal})`);
 };
 
+// setup function
 function init() {
 	
 	// Check if canvas is available
@@ -41,9 +43,9 @@ function init() {
 		return;
 	}
 
-	// Create base Elements
+	// Renderer draws the canvas
 	scene = new THREE.Scene();
-	renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+	renderer = new THREE.WebGLRenderer({ antialias: true, canvas }); // antialias for smoother edges
 	/* Shadows
 	renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.BasicShadowMap;
