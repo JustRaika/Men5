@@ -8,6 +8,7 @@ import { createZebraMaterial } from './shaders/materials/zebra/material.js';
 import { createPositionMaterial } from './shaders/materials/position/material.js';
 import { createNormalMaterial } from './shaders/materials/normal/material.js';
 import { createDeformMaterial } from './shaders/materials/deform/material.js';
+import { createLightMaterial } from './shaders/materials/light/material.js';
 
 // Array to store materials
 const materials = [
@@ -16,6 +17,7 @@ const materials = [
 	createZebraMaterial(),
 	createPositionMaterial(),
 	createDeformMaterial(),
+	createLightMaterial(),
 ];
 
 const canvas = document.querySelector('#three');
