@@ -1,3 +1,5 @@
+precision mediump float;
+
 // varyings
 varying vec3 v_normal;
 

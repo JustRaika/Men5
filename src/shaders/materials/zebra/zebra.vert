@@ -1,5 +1,6 @@
 
-#define GLSLIFY 1
+precision mediump float;
+
 // Common varyings
 varying vec3 v_position;
 varying vec3 v_normal;

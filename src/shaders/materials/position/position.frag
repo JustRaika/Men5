@@ -1,5 +1,7 @@
+precision mediump float;
+
 // uniforms
-uniform float uTime;
+uniform float u_time;
 
 // varyings
 varying vec3 v_position;
