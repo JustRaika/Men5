@@ -3,7 +3,7 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 // Import custom shader materials
 import { sharedUniforms } from './shaders/uniforms.js';
-import { createTestMaterial } from './shaders/materials/test/material.js';
+import { createFirstMaterial } from './shaders/materials/first/material.js';
 import { createZebraMaterial } from './shaders/materials/zebra/material.js';
 import { createPositionMaterial } from './shaders/materials/position/material.js';
 import { createNormalMaterial } from './shaders/materials/normal/material.js';
@@ -11,7 +11,7 @@ import { createNormalMaterial } from './shaders/materials/normal/material.js';
 // Array to store materials
 const materials = [
 	createNormalMaterial(),
-	createTestMaterial(),
+	createFirstMaterial(),
 	createZebraMaterial(),
 	createPositionMaterial(),
 ];
