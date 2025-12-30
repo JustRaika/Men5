@@ -10,7 +10,7 @@ precision mediump float;
 varying vec3 v_color;
 
 void main() {
-    // Circle Mask für runde Punkte
+    
     vec2 coord = gl_PointCoord - 0.5;
     float dist = length(coord);
     if (dist > 0.5) discard;

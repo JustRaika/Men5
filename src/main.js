@@ -54,7 +54,6 @@ function init() {
     spheres = createSpheres(materials);
     spheres.forEach(s => scene.add(s));
 
-	//Assets: Partikel
 	const particleMat = createParticleMaterial();
 	const particleSystem = createParticlePoints(particleMat, 100);
 	scene.add(particleSystem);
