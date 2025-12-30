@@ -6,8 +6,14 @@ precision mediump float;
 // uniform vec2 u_resolution;
 
 // varyings
-varying vec3 v_normal;
+//varying vec3 v_normal;
+varying vec3 v_color;
 
 void main() {
-    gl_FragColor = vec4(v_normal * 0.5 + 0.5, 1.0);
+    // Circle Mask für runde Punkte
+    vec2 coord = gl_PointCoord - 0.5;
+    float dist = length(coord);
+    if (dist > 0.5) discard;
+
+    gl_FragColor = vec4(v_color, 1.0);
 }

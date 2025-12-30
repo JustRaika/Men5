@@ -7,6 +7,8 @@ import { setupRenderer } from './setup/renderer.js';
 import { setupScene, addLights } from './setup/scene.js';
 import { setupEvents } from './setup/events.js';
 import { getMouseRay } from './utils.js';
+import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
+import { createParticlePoints } from './assets.js';
 
 const canvas = document.querySelector('#three');
 
@@ -51,6 +53,11 @@ function init() {
     // Assets
     spheres = createSpheres(materials);
     spheres.forEach(s => scene.add(s));
+
+	//Assets: Partikel
+	const particleMat = createParticleMaterial();
+	const particleSystem = createParticlePoints(particleMat, 100);
+	scene.add(particleSystem);
 
     // Clock
     clock = new THREE.Clock();
