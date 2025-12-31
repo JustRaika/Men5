@@ -3,7 +3,7 @@ precision mediump float;
 // declare the varyings to pass data to the fragment shader
 uniform float u_time;
 //uniform vec2 u_resolution;
-uniform float u_pointSize;
+uniform float u_pointSize; //this makes stars, comment out if you want them to disappear
 
 varying vec3 v_color;
 
@@ -16,7 +16,8 @@ void main() {
     // Farbe als Funktion der Position
     v_color = vec3(abs(sin(u_time + pos.x)), abs(sin(u_time + pos.y)), abs(sin(u_time + pos.z)));
 
-    gl_PointSize = u_pointSize;
+    gl_PointSize = u_pointSize; ////this makes stars, comment out if you want them to disappear
+    pos += vec3(sin(u_time) * 0.3, cos(u_time) * 0.3, sin(u_time * 0.5) * 0.1);
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
