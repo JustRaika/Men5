@@ -6,7 +6,7 @@ import { materials, createSpheres } from './assets.js';
 import { setupRenderer } from './setup/renderer.js';
 import { setupScene, addLights } from './setup/scene.js';
 import { setupEvents } from './setup/events.js';
-import { getMouseRay } from './utils.js';
+import { raycast, sphereRotationManager, updateCameraRotation } from './utils.js';
 import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
 import { createParticlePoints } from './assets.js';
 
@@ -16,8 +16,6 @@ const canvas = document.querySelector('#three');
 let scene, camera, renderer, clock, stats;
 let spheres = [];
 let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
-let sphereRotating = false, sphereRotationStartPos = 0;
-let sharedRaycasterSelection, sharedRaycasterSelectionRotation;
 
 // Zeitmanager
 const timeManager = {
@@ -106,30 +104,28 @@ function onScroll() {
 
 function onMouseMove(event) {
     mousePos.set(event.clientX, event.clientY);
-    if (sphereRotating && sharedRaycasterSelection) {
-        const rotation = sphereRotationStartPos - event.clientX;
-        sharedRaycasterSelection.rotation.y = sharedRaycasterSelectionRotation + rotation * -0.01;
+
+    if (sphereRotationManager.rotating && raycast.hit) {
+        sphereRotationManager.update(mousePos);
     }
+
+    updateCameraRotation(mousePos, canvas, camera);
 }
 
 function onClickStart() {
     if (!mouseOnCanvas) return;
 
-    const raycaster = getMouseRay(mousePos, canvas, camera);
-    const intersects = raycaster.intersectObjects(scene.children, false);
-
-    if (intersects.length > 0) {
-        sharedRaycasterSelection = intersects[0].object;
-        sharedRaycasterSelectionRotation = sharedRaycasterSelection.rotation.y;
-        sphereRotationStartPos = mousePos.x;
-        sphereRotating = true;
+    // Raycast for rotation or pause
+    raycast.getIntersects(mousePos, canvas, camera, scene, false);
+    if (raycast.hit) {
+        sphereRotationManager.start(mousePos);
     } else {
         timeManager.pause(clock);
     }
 }
 
 function onClickEnd() {
-    sphereRotating = false;
+    sphereRotationManager.rotating = false;
     timeManager.resume(clock);
 }
 
