@@ -43,8 +43,10 @@ function init() {
     addLights(scene);
 
     // Stats
-    stats = new Stats();
-    document.body.appendChild(stats.dom);
+    if (!import.meta.env.PROD) {
+        stats = new Stats();
+        document.body.appendChild(stats.dom);
+    }
 
     // Assets
     spheres = createSpheres(materials);
@@ -78,7 +80,7 @@ function init() {
 // ----------------- RENDER -----------------
 function render() {
     timeManager.update(clock);
-    stats.update();
+    if (!import.meta.env.PROD) stats.update();
     renderer.render(scene, camera);
 }
 
