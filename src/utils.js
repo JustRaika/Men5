@@ -46,12 +46,11 @@ export const sphereRotationManager = {
 
 export function updateCameraRotation(mouse, canvas, camera) {
     const strength = 0.05;
-    const speed = 0.01;
     const targetRotation = new THREE.Euler(
         (mouse.y / canvas.clientHeight - 0.5) * strength,
         (mouse.x / canvas.clientWidth - 0.5) * strength,
         0,
         'XYZ'
     )
-    camera.quaternion.slerp(new THREE.Quaternion().setFromEuler(targetRotation), speed);
+    camera.quaternion.setFromEuler(targetRotation);
 }
