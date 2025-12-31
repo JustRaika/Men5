@@ -14,12 +14,10 @@ const canvas = document.querySelector('#three');
 
 // globale Variablen
 let scene, camera, renderer, clock, stats;
-let mousePos = new THREE.Vector2();
-let mouseOnCanvas = true;
-let sphereRotating = false;
-let sphereRotationStartPos = 0;
-let sharedRaycasterSelection;
 let spheres = [];
+let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
+let sphereRotating = false, sphereRotationStartPos = 0;
+let sharedRaycasterSelection, sharedRaycasterSelectionRotation;
 
 // Zeitmanager
 const timeManager = {
@@ -34,8 +32,8 @@ const timeManager = {
         this.pausedAt = clock.getElapsedTime();
     },
     resume(clock) {
+        if (this.paused) this.offset += clock.getElapsedTime() - this.pausedAt;
         this.paused = false;
-        this.offset += clock.getElapsedTime() - this.pausedAt;
     }
 };
 
@@ -109,8 +107,8 @@ function onScroll() {
 function onMouseMove(event) {
     mousePos.set(event.clientX, event.clientY);
     if (sphereRotating && sharedRaycasterSelection) {
-        const rotation = sphereRotationStartPos + event.clientX;
-        sharedRaycasterSelection.rotation.y = rotation * 0.01;
+        const rotation = sphereRotationStartPos - event.clientX;
+        sharedRaycasterSelection.rotation.y = sharedRaycasterSelectionRotation + rotation * -0.01;
     }
 }
 
@@ -122,6 +120,7 @@ function onClickStart() {
 
     if (intersects.length > 0) {
         sharedRaycasterSelection = intersects[0].object;
+        sharedRaycasterSelectionRotation = sharedRaycasterSelection.rotation.y;
         sphereRotationStartPos = mousePos.x;
         sphereRotating = true;
     } else {
