@@ -1,14 +1,14 @@
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import { sharedUniforms } from './shaders/uniforms.js';
-import { materials, createSpheres } from './assets.js';
 import { setupRenderer } from './setup/renderer.js';
 import { setupScene, addLights } from './setup/scene.js';
 import { setupEvents } from './setup/events.js';
-import { raycast, sphereRotationManager, updateCameraRotation } from './utils.js';
+import { sharedUniforms } from './shaders/uniforms.js';
+import { materials, createSpheres } from './assets.js';
 import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
 import { createParticlePoints } from './assets.js';
+import { raycast, sphereRotationManager, updateCameraRotation } from './utils.js';
 
 const canvas = document.querySelector('#three');
 

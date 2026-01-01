@@ -1,15 +1,14 @@
 // Alle Materialien und Spheres werden hier erstellt
 
 import * as THREE from 'three';
-import { 
-    createNormalMaterial,
-    createFirstMaterial,
-    createZebraMaterial,
-    createPositionMaterial,
-    createDeformMaterial,
-    createLightMaterial,
-    createParticleMaterial
-} from './shaders/materials/index.js';
+
+import { createNormalMaterial } from './shaders/materials/normal_1/material.js';
+import { createFirstMaterial } from './shaders/materials/first_2/material.js';
+import { createZebraMaterial } from './shaders/materials/zebra_3/material.js';
+import { createPositionMaterial } from './shaders/materials/position_4/material.js';
+import { createDeformMaterial } from './shaders/materials/deform_5/material.js';
+import { createLightMaterial } from './shaders/materials/light_6/material.js';
+import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
 
 export const materials = [
     createNormalMaterial(),
