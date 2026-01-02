@@ -1,24 +1,58 @@
-# Men5
-A mentoring project in collaboration to write shaders and test them out.
+# The Shader Planetarium 
+A mentoring project in collaboration to get to know the realm of shaders in computer graphics. 
 
-# Web Setup
+# Contributors
+- [Jan Schwegler](https://github.com/JanSchwegler)
+- [Dominika Degtyareva](https://github.com/JustRaika)
+
+# How to install and run
+1. Clone the repository
+   ```bash
+   git clone https://github.com/JustRaika/Men5.git
+   ```
+   -> Alternatively, you can download the ZIP file from the GitHub repository and extract it to your desired location or do it via `Github Desktop`.
+
+2. Navigate to the project directory
+    ```bash
+    cd Men5
+    ```
+
+3. Install dependencies
+     ```bash
+        npm install
+     ```
+    -> This project requires Node (v20 or higher) and npm (bundled with Node.js). If you don't have Node, please download and install it from https://nodejs.org/.
+
+4. Start the development server
+     ```bash
+        npm run dev
+    ``` 
+
+5. Open your browser and go to `http://localhost:5173/Men5/dist/` (or the URL provided in the terminal). Ensure the port is available.
+
+
+# Tech Setup
 - Three.js
 - Vite
-- ...
-
-# Shader Basics and selection
 - GLSL
-- HLSL
-- CG
-- TSL
+- HTML/CSS/JS
+- Node.js
+- (WebGL)
 
-# Shader Knowlage
-- Uniforms, Vertex & Fragment
+# Shader Basics
+All technical research is recorded on our [Miro!](https://miro.com/app/board/uXjVJGpaUj0=/)
+
+# Shader Knowlege aquired
+- Shader languages: GLSL
+- Shader types: Vertex, Fragment, Compute
+- Shader platforms: WebGL
+- Shader editors: Shadertoy
+- Uniforms
 - Setup and Include
+- Varyings
 
 # Resources
 - [https://threejs.org/]
-- [https://vite.dev/]
 
 - [https://thebookofshaders.com/]
 - [https://www.shadertoy.com/]
