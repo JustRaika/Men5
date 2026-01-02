@@ -8,6 +8,9 @@ precision mediump float;
 // varyings
 varying vec3 v_normal;
 
+// include chunks
+// #include <simplex> // -> simplex()
+
 void main() {
     gl_FragColor = vec4(v_normal * 0.5 + 0.5, 1.0);
 }
