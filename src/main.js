@@ -9,6 +9,7 @@ import { materials, createSpheres } from './assets.js';
 import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
 import { createParticlePoints } from './assets.js';
 import { raycast, sphereRotationManager, updateCameraRotation } from './utils.js';
+import { registerChunks } from './shaders/chunks/registerChunks.js';
 
 const canvas = document.querySelector('#three');
 
@@ -49,6 +50,7 @@ function init() {
     }
 
     // Assets
+    registerChunks();
     spheres = createSpheres(materials);
     spheres.forEach(s => scene.add(s));
 
