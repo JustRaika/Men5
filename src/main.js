@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-//import Stats from 'three/examples/jsm/libs/stats.module.js';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 import { setupRenderer } from './setup/renderer.js';
 import { setupScene, addLights } from './setup/scene.js';
@@ -45,11 +45,11 @@ function init() {
     renderer = setupRenderer(canvas);
     addLights(scene);
 
-    // // Stats
-    // if (!import.meta.env.PROD) {
-    //     stats = new Stats();
-    //     document.body.appendChild(stats.dom);
-    // }
+    // Stats
+    if (!import.meta.env.PROD) {
+        stats = new Stats();
+        document.body.appendChild(stats.dom);
+    }
 
     // Assets
     registerChunks();
@@ -88,7 +88,7 @@ function init() {
 // ----------------- RENDER -----------------
 function render() {
     timeManager.update(clock);
-    //if (!import.meta.env.PROD) stats.update();
+    if (!import.meta.env.PROD) stats.update();
     renderer.render(scene, camera);
 }
 
