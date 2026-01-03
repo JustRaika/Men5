@@ -51,6 +51,17 @@ All technical research is recorded on our [Miro!](https://miro.com/app/board/uXj
 - Setup and Include
 - Varyings
 
+# Snippets
+
+## Map UV to -1 - 1
+```glsl
+vec2 p = v_uv * 2.0;
+vec2 q = p - vec2(0.5, 0.5);
+
+// modify vec2 to move element
+vec2 q = p - vec2(0.3, 0.6);
+```
+
 # Resources
 - [https://threejs.org/]
 
