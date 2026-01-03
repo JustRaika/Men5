@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import Stats from 'three/examples/jsm/libs/stats.module.js';
+//import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 import { setupRenderer } from './setup/renderer.js';
 import { setupScene, addLights } from './setup/scene.js';
@@ -10,6 +10,8 @@ import { createParticleMaterial } from './shaders/materials/particles_7/material
 import { createParticlePoints } from './assets.js';
 import { raycast, sphereRotationManager, updateCameraRotation } from './utils.js';
 import { registerChunks } from './shaders/chunks/registerChunks.js';
+import { addStarBackground } from './setup/background.js';
+
 
 const canvas = document.querySelector('#three');
 
@@ -43,11 +45,11 @@ function init() {
     renderer = setupRenderer(canvas);
     addLights(scene);
 
-    // Stats
-    if (!import.meta.env.PROD) {
-        stats = new Stats();
-        document.body.appendChild(stats.dom);
-    }
+    // // Stats
+    // if (!import.meta.env.PROD) {
+    //     stats = new Stats();
+    //     document.body.appendChild(stats.dom);
+    // }
 
     // Assets
     registerChunks();
@@ -55,7 +57,8 @@ function init() {
     spheres.forEach(s => scene.add(s));
 
 	const particleMat = createParticleMaterial();
-	const particleSystem = createParticlePoints(particleMat, 100);
+	const particleSystem = createParticlePoints(particleMat, 800);
+	particleSystem.position.x += 15;
 	scene.add(particleSystem);
 
     // Clock
@@ -77,12 +80,15 @@ function init() {
 
     // Animation loop
     renderer.setAnimationLoop(render);
+
+	// Background
+	addStarBackground(scene);
 }
 
 // ----------------- RENDER -----------------
 function render() {
     timeManager.update(clock);
-    if (!import.meta.env.PROD) stats.update();
+    //if (!import.meta.env.PROD) stats.update();
     renderer.render(scene, camera);
 }
 
@@ -100,7 +106,6 @@ function onScroll() {
     const scrollTop = window.scrollY;
     sharedUniforms.u_scroll.value = scrollTop;
 
-    // Kamera seitlich scrollen
     const maxX = (materials.length - 1) * 2.5;
     const scrollFraction = scrollTop / (document.documentElement.scrollHeight - window.innerHeight);
     camera.position.x = scrollFraction * maxX;

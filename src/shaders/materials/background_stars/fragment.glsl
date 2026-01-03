@@ -1,0 +1,32 @@
+precision mediump float;
+
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float random(vec2 st) {
+    return fract(sin(dot(st, vec2(12.9898,78.233))) * 43758.5453123);
+}
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+
+    float density = 600.0;
+    vec2 grid = uv * density;
+
+    vec2 cell = fract(grid) - 0.5;
+    vec2 id = floor(grid);
+
+    float rnd = random(id);
+
+    float star = step(0.98, rnd);
+
+    float d = length(cell);
+    float circle = smoothstep(0.08, 0.0, d);
+
+    float flicker = sin(u_time * 3.0 + rnd * 10.0) * 0.15 + 0.90;
+    //float flicker = sin(u_time * 1.5 + rnd * 10.0) * 0.4 + 0.6;
+
+    float brightness = star * circle * flicker;
+
+    gl_FragColor = vec4(vec3(brightness), 1.0);
+}
