@@ -11,7 +11,6 @@ import { createLightMaterial } from './shaders/materials/light_6/material.js';
 import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
 import { createNoiseMaterial } from './shaders/materials/noise_8/material.js';
 import { createNoise9Material } from './shaders/materials/noise_9/material.js';
-import { createBackgroundStarsMaterial } from './shaders/materials/background_stars/material.js';
 
 export const materials = [
     createNormalMaterial(),
@@ -23,7 +22,6 @@ export const materials = [
     createParticleMaterial(),
     createNoiseMaterial(),
     createNoise9Material(),
-    createBackgroundStarsMaterial(),
 ];
 
 export function createSpheres(materials, geometry = new THREE.SphereGeometry(1, 32, 32)) {
