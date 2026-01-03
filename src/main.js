@@ -12,7 +12,6 @@ import { raycast, sphereRotationManager, updateCameraRotation } from './utils.js
 import { registerChunks } from './shaders/chunks/registerChunks.js';
 import { addStarBackground } from './setup/background.js';
 
-
 const canvas = document.querySelector('#three');
 
 // globale Variablen
