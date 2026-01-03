@@ -5,7 +5,7 @@ import { sharedUniforms } from '../../uniforms.js';
 
 export function createNormalMaterial() {
     return new THREE.ShaderMaterial({
-        name: 'Normal',
+        name: 'Normals',
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms

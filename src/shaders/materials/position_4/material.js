@@ -5,7 +5,7 @@ import { sharedUniforms } from '../../uniforms.js';
 
 export function createPositionMaterial() {
     return new THREE.ShaderMaterial({
-        name: 'Position',
+        name: 'UV, Position & Math',
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms

@@ -5,7 +5,7 @@ import { sharedUniforms } from '../../uniforms.js';
 
 export function createDeformMaterial() {
     return new THREE.ShaderMaterial({
-        name: 'Deform',
+        name: 'Vertex Deform',
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms

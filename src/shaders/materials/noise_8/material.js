@@ -5,7 +5,7 @@ import { sharedUniforms } from '../../uniforms.js';
 
 export function createNoiseMaterial() {    // change function name
     return new THREE.ShaderMaterial({
-        name: 'Noise',                     // change material name
+        name: 'Noise Chunks',              // change material name
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms

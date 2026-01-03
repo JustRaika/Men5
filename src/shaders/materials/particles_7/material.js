@@ -5,7 +5,7 @@ import { sharedUniforms } from '../../uniforms.js';
 
 export function createParticleMaterial() {    // change function name
     return new THREE.ShaderMaterial({
-        name: 'Particle',                     // change material name
+        name: 'Particles',                     // change material name
         uniforms: { 
             ...sharedUniforms,
             u_pointSize: { value: 5.0 },

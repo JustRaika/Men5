@@ -5,7 +5,7 @@ import { sharedUniforms } from '../../uniforms.js';
 
 export function createZebraMaterial() {
     return new THREE.ShaderMaterial({
-        name: 'Zebra',
+        name: 'Zebra & Time',
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms

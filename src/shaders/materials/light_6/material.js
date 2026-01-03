@@ -5,7 +5,7 @@ import { sharedUniforms } from '../../uniforms.js';
 
 export function createLightMaterial() {
     return new THREE.ShaderMaterial({
-        name: 'Light',
+        name: 'Fake Light',
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms
