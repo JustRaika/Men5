@@ -8,7 +8,7 @@ import { sharedUniforms } from './shaders/uniforms.js';
 import { materials, createSpheres, createSphereLabels } from './assets.js';
 import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
 import { createParticlePoints } from './assets.js';
-import { raycast, sphereRotationManager, updateCameraRotation } from './utils.js';
+import { raycast, sphereRotationManager, updateCameraRotation, timeManager } from './utils.js';
 import { registerChunks } from './shaders/chunks/registerChunks.js';
 import { addStarBackground } from './setup/background.js';
 
@@ -18,24 +18,6 @@ const canvas = document.querySelector('#three');
 let scene, camera, renderer, clock, stats, labelRenderer;
 let spheres = [];
 let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
-
-// Zeitmanager
-const timeManager = {
-    paused: false,
-    pausedAt: 0,
-    offset: 0,
-    update(clock) {
-        if (!this.paused) sharedUniforms.u_time.value = clock.getElapsedTime() - this.offset;
-    },
-    pause(clock) {
-        this.paused = true;
-        this.pausedAt = clock.getElapsedTime();
-    },
-    resume(clock) {
-        if (this.paused) this.offset += clock.getElapsedTime() - this.pausedAt;
-        this.paused = false;
-    }
-};
 
 // ----------------- INIT -----------------
 function init() {

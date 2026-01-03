@@ -2,6 +2,8 @@
 
 import * as THREE from 'three';
 
+import { sharedUniforms } from './shaders/uniforms.js';
+
 export const raycast = {
     raycaster: new THREE.Raycaster(),
     hits: [],
@@ -54,3 +56,20 @@ export function updateCameraRotation(mouse, canvas, camera) {
     )
     camera.quaternion.setFromEuler(targetRotation);
 }
+
+export const timeManager = {
+    paused: false,
+    pausedAt: 0,
+    offset: 0,
+    update(clock) {
+        if (!this.paused) sharedUniforms.u_time.value = clock.getElapsedTime() - this.offset;
+    },
+    pause(clock) {
+        this.paused = true;
+        this.pausedAt = clock.getElapsedTime();
+    },
+    resume(clock) {
+        if (this.paused) this.offset += clock.getElapsedTime() - this.pausedAt;
+        this.paused = false;
+    }
+};
