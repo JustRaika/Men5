@@ -1,6 +1,7 @@
 // Alle Materialien und Spheres werden hier erstellt
 
 import * as THREE from 'three';
+import { CSS2DObject } from 'three/examples/jsm/Addons.js';
 
 import { createNormalMaterial } from './shaders/materials/normal_1/material.js';
 import { createFirstMaterial } from './shaders/materials/first_2/material.js';
@@ -29,6 +30,17 @@ export function createSpheres(materials, geometry = new THREE.SphereGeometry(1, 
         const sphere = new THREE.Mesh(geometry, mat);
         sphere.position.x = i * 2.5;
         return sphere;
+    });
+}
+
+export function createSphereLabels(materials) {
+    const positionY = -1.4;
+    return materials.map((mat, i) => {
+        const p = document.createElement("p");
+        p.textContent = mat.name;
+        const label = new CSS2DObject(p);
+        label.position.set(i*2.5, positionY, 0);
+        return label;
     });
 }
 

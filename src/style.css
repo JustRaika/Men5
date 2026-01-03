@@ -11,7 +11,7 @@ html, body, div, canvas, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, form, in
 }
 
 /* Font */
-a {
+a, #sphereLabels>p {
     color: #777;
     font-family: Arial, sans-serif;
     font-size: 0.8rem;
@@ -31,6 +31,7 @@ canvas {
 	left: 0;
 }
 
+/* Styles - Nav */
 nav {
     position: fixed;
     top: 20px;
@@ -60,4 +61,14 @@ nav a:hover {
 nav a:hover::after {
     width: 100%;
     left: 0;
+}
+
+/* Styles - Labels */
+#sphereLabels {
+    position: fixed;
+    top: 0px;
+    pointer-events: none;
+}
+#sphereLabels>p {
+    font-size: 1rem;
 }

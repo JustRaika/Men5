@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
-import { setupRenderer } from './setup/renderer.js';
+import { setupRenderer, setupLabelRenderer } from './setup/renderer.js';
 import { setupScene, addLights } from './setup/scene.js';
 import { setupEvents } from './setup/events.js';
 import { sharedUniforms } from './shaders/uniforms.js';
-import { materials, createSpheres } from './assets.js';
+import { materials, createSpheres, createSphereLabels } from './assets.js';
 import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
 import { createParticlePoints } from './assets.js';
 import { raycast, sphereRotationManager, updateCameraRotation } from './utils.js';
@@ -15,8 +15,8 @@ import { addStarBackground } from './setup/background.js';
 const canvas = document.querySelector('#three');
 
 // globale Variablen
-let scene, camera, renderer, clock, stats;
-let spheres = [];
+let scene, camera, renderer, clock, stats, labelRenderer;
+let spheres = [], sphereLabels = [];
 let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
 
 // Zeitmanager
@@ -60,6 +60,11 @@ function init() {
 	particleSystem.position.x += 15;
 	scene.add(particleSystem);
 
+    // Labels
+    labelRenderer = setupLabelRenderer(canvas);
+    sphereLabels = createSphereLabels(materials);
+    sphereLabels.forEach(l => scene.add(l));
+
     // Clock
     clock = new THREE.Clock();
 
@@ -88,6 +93,7 @@ function init() {
 function render() {
     timeManager.update(clock);
     if (!import.meta.env.PROD) stats.update();
+    labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
 }
 
@@ -99,6 +105,7 @@ function onResize() {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     sharedUniforms.u_resolution.value.set(width, height);
+    labelRenderer.setSize(width, height)
 }
 
 function onScroll() {
