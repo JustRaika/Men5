@@ -16,7 +16,7 @@ const canvas = document.querySelector('#three');
 
 // globale Variablen
 let scene, camera, renderer, clock, stats, labelRenderer;
-let spheres = [], sphereLabels = [];
+let spheres = [];
 let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
 
 // Zeitmanager
@@ -52,6 +52,8 @@ function init() {
 
     // Assets
     registerChunks();
+    const sphereGroup = new THREE.Group();
+    sphereGroup.name = "Spheres";
     spheres = createSpheres(materials);
     spheres.forEach(s => scene.add(s));
 
@@ -62,8 +64,7 @@ function init() {
 
     // Labels
     labelRenderer = setupLabelRenderer(canvas);
-    sphereLabels = createSphereLabels(materials);
-    sphereLabels.forEach(l => scene.add(l));
+    scene.add(createSphereLabels(materials));
 
     // Clock
     clock = new THREE.Clock();

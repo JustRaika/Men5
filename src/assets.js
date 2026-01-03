@@ -28,20 +28,27 @@ export const materials = [
 export function createSpheres(materials, geometry = new THREE.SphereGeometry(1, 32, 32)) {
     return materials.map((mat, i) => {
         const sphere = new THREE.Mesh(geometry, mat);
+        sphere.name = "Sphere " + mat.name;
         sphere.position.x = i * 2.5;
         return sphere;
     });
 }
 
 export function createSphereLabels(materials) {
+    const sphereLabelGroup = new THREE.Group();
+    sphereLabelGroup.name = "Sphere Labels";
     const positionY = -1.4;
-    return materials.map((mat, i) => {
+
+    materials.map((mat, i) => {
         const p = document.createElement("p");
         p.textContent = mat.name;
         const label = new CSS2DObject(p);
+        label.name = mat.name;
         label.position.set(i*2.5, positionY, 0);
-        return label;
+        sphereLabelGroup.add(label);
     });
+
+    return sphereLabelGroup;
 }
 
 export function createParticlePoints(material, count) {
