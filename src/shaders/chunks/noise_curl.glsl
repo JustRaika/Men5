@@ -1,5 +1,5 @@
 // based on fbm and hash
-#include "noise_fbm.glsl"
+#include <fbm>
 
 vec3 curl(vec3 p) {
     const float eps = 0.01;
