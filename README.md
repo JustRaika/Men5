@@ -54,9 +54,17 @@ All technical research is recorded on our [Miro!](https://miro.com/app/board/uXj
 # Snippets
 
 ## Noises
-For most of the Noises the position can me added to the time with a scalar:
+For most of the 3D Noises, the position can me added to the time with a scalar. (4D Noises are ment to take the time in the 4th dimension):
 ```glsl
 vec3 p = v_position * 2.0 + 0.3 * u_time;
+```
+Some noises need to be normalized from -1,1 to 0,1. This is also shown in: "Map from -1,1 to 0,1"
+```glsl
+0.5 + 0.5 * n
+
+// example
+vec3 n = noise(v_position); // n: -1,1
+gl_FragColor = vec4(vec3(0.5 + 0.5 * n), 1.0); // 0,1
 ```
 ### Worley 3D
 Most common: use F1 as grayscale 
@@ -90,6 +98,7 @@ gl_FragColor = vec4(vec3(0.5 + 0.5 * n), 1.0);
 ```
 
 ### Simplex 3D Gradient
+Same as "Simplex 3D", but it returns additional information in "grad". Grad is a vector 3 that contains spatial derivative. That means the rate of change of a function with respect to spatial coordinates, so direction & strength. 
 ```glsl
 vec3 grad;
 float n = snoise(v_position * 3.0, grad);
