@@ -10,6 +10,7 @@ varying vec3 v_position;
 varying vec3 v_normal;
 
 // include chunks
+#include <noisebase>
 #include <simplex3D>
 
 float fbm(vec3 p, int octaves, float lacunarity, float gain, vec2 step) {

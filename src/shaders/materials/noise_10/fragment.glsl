@@ -10,11 +10,11 @@ varying vec3 v_position;
 varying vec3 v_normal;
 
 // include chunks
-#include <simplex>
-#include <worley>
+#include <noisebase>
+#include <simplex3D>
+#include <worley3D>
 
 void main() {
-    // Simple noise based on position
-    float n = worley(v_position * 5.0 + u_time * 0.2) + 0.5 * simplex(v_position * 2.0 + u_time * 0.5);
+    float n = cellular(v_position * 5.0 + u_time * 0.2).x + 0.5 * snoise(v_position * 2.0 + u_time * 0.5);
     gl_FragColor = vec4(vec3(n), 1.0);
 }

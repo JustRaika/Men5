@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 
+import noisebase from './noise_base_functions.glsl?raw';
 import hash from './noise_hash.glsl?raw';
 import fbm from './noise_fbm.glsl?raw';
 import curl from './noise_curl.glsl?raw';
@@ -15,6 +16,7 @@ import worley3D from './webgl-noise_worley_3D.glsl?raw';
 
 
 export function registerChunks() {
+    THREE.ShaderChunk['noisebase'] = noisebase;
     THREE.ShaderChunk['hash'] = hash;
     THREE.ShaderChunk['fbm'] = fbm;
     THREE.ShaderChunk['curl'] = curl;
