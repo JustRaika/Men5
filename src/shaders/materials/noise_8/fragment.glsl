@@ -15,9 +15,11 @@ varying vec3 v_normal;
 #include <simplex>
 
 void main() {
-    
-    float s = mod(floor(u_time), 5.0);
-    float col = 0.5;
+    const float speed = 2.0;
+    const float caseCount = 5.0;
+    float s = mod(floor(u_time / speed), caseCount);
+
+    float col = 0.5; // backup
 
     if (s < 1.0) { // hash
         col = hash(v_position * 0.1);

@@ -3,9 +3,9 @@ import vertexShader from './vertex.glsl?raw';
 import fragmentShader from './fragment.glsl?raw';
 import { sharedUniforms } from '../../uniforms.js';
 
-export function createNoise2Material() {    // change function name
+export function createWorleyNoiseMaterial() {    // change function name
     return new THREE.ShaderMaterial({
-        name: 'Noise 2',              // change material name
+        name: 'Worley Noise',                     // change material name
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms
