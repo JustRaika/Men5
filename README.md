@@ -137,6 +137,18 @@ vec2 q = p - vec2(0.3, 0.6);
 ```
 
 ## Map from -1,1 to 0,1
+```glsl
+0.5 + 0.5 * n
+
+// example
+vec3 n = noise(v_position); // n: -1,1
+gl_FragColor = vec4(vec3(0.5 + 0.5 * n), 1.0); // 0,1
+```
+## Custom smoothstep function of f
+```glsl
+float u = f * f * ( 3.0 - 2.0 * f );
+float u = smoothstep( 0.0, 1.0, f );
+```
 
 # Resources
 - [https://threejs.org/]
