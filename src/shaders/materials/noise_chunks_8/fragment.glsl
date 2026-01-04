@@ -34,7 +34,7 @@ void main() {
         vec2 c = cellular(v_position * 3.0);
         col = c.y - c.x;
     } else if (s < 5.0) { // curl
-        vec3 curl = curlNoise(v_position * 3.0 + 0.3 * u_time);
+        vec3 curl = curlNoise(v_position * 1.0 + 0.1 * u_time);
         curl = 0.5 + 0.5 * curl;
         gl_FragColor = vec4(vec3(curl) , 1.0);
         return;

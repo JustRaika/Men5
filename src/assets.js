@@ -10,9 +10,10 @@ import { createPositionMaterial } from './shaders/materials/position_4/material.
 import { createDeformMaterial } from './shaders/materials/deform_5/material.js';
 import { createLightMaterial } from './shaders/materials/light_6/material.js';
 import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
-import { createNoiseMaterial } from './shaders/materials/noise_8/material.js';
-import { createNoise2Material } from './shaders/materials/noise_9/material.js';
-import { createWorleyNoiseMaterial } from './shaders/materials/noise_10/material.js';
+import { createNoiseMaterial } from './shaders/materials/noise_chunks_8/material.js';
+import { createNoise2Material } from './shaders/materials/noise_fbm_9/material.js';
+import { createWorleyNoiseMaterial } from './shaders/materials/noise_mix_10/material.js';
+import { createNoiseDeformMaterial } from './shaders/materials/noise_deform_11/material.js';
 
 export const materials = [
     createNormalMaterial(),
@@ -25,6 +26,7 @@ export const materials = [
     createNoiseMaterial(),
     createNoise2Material(),
     createWorleyNoiseMaterial(),
+    createNoiseDeformMaterial(),
 ];
 
 export function createSpheres(materials, geometry = new THREE.SphereGeometry(1, 32, 32)) {
