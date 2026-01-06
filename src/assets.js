@@ -14,6 +14,7 @@ import { createNoiseMaterial } from './shaders/materials/noise_chunks_8/material
 import { createNoise2Material } from './shaders/materials/noise_fbm_9/material.js';
 import { createWorleyNoiseMaterial } from './shaders/materials/noise_mix_10/material.js';
 import { createNoiseDeformMaterial } from './shaders/materials/noise_deform_11/material.js';
+import { createGlowMaterial } from './shaders/materials/glow_12/material.js';
 
 export const materials = [
     createNormalMaterial(),
@@ -27,6 +28,7 @@ export const materials = [
     createNoise2Material(),
     createWorleyNoiseMaterial(),
     createNoiseDeformMaterial(),
+    createGlowMaterial(),
 ];
 
 export function createSpheres(materials, geometry = new THREE.SphereGeometry(1, 32, 32)) {
