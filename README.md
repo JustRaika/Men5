@@ -162,11 +162,14 @@ float u = smoothstep( 0.0, 1.0, f );
 # Resources
 - [https://threejs.org/]
 
-- [https://thebookofshaders.com/]
+- [https://thebookofshaders.com/] - An excellent resource for learning about shaders from the ground up.
 - [https://www.shadertoy.com/]
 - [https://aerotwist.com/tutorials/an-introduction-to-shaders-part-2/]
-- [https://webgl-shaders.com/index.html]
+- [https://webgl-shaders.com/index.html] - 
+- [https://www.geeks3d.com/shader-library/] - A large collection of shaders
+- [https://github.com/vanrez-nez/awesome-glsl?tab=readme-ov-file] - A curated list of awesome GLSL libraries, resources and shiny things.
+
 
 # ToDo
-- [ ] Kind of interactable for spheres
+- [x] Slay the sahders
 - [ ] 
