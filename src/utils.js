@@ -1,9 +1,10 @@
-// für kleine Helferfunktionen wie Raycaster
+// Kleine Helferfunktionen und Manager
 
 import * as THREE from 'three';
 
 import { sharedUniforms } from './shaders/uniforms.js';
 
+// Raycast: Erkennung von Objekten unter dem Mauszeiger
 export const raycast = {
     raycaster: new THREE.Raycaster(),
     hits: [],
@@ -28,6 +29,7 @@ export const raycast = {
     }
 };
 
+// Manager für die Rotation der Kugeln
 export const sphereRotationManager = {
     speed: 0.01,
     object: null,
@@ -46,6 +48,7 @@ export const sphereRotationManager = {
     }
 };
 
+// Kamera-Rotation basierend auf Mausposition
 export function updateCameraRotation(mouse, canvas, camera) {
     const strength = 0.05;
     const targetRotation = new THREE.Euler(
@@ -57,6 +60,7 @@ export function updateCameraRotation(mouse, canvas, camera) {
     camera.quaternion.setFromEuler(targetRotation);
 }
 
+// Zeit-Manager zum Pausieren und Fortsetzen der Animationen
 export const timeManager = {
     paused: false,
     pausedAt: 0,
@@ -74,7 +78,7 @@ export const timeManager = {
     }
 };
 
-// returns true if on mobile device
+// Erkennung mobiler Geräte
 export function isMobileDevice() {
     return (
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(

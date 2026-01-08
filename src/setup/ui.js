@@ -1,44 +1,86 @@
-import { isMobileDevice } from '../utils.js';
+import * as THREE from 'three';
 
-export function setupUI({ timeManager, clock }) {
-    const mobileOverlay = document.getElementById('mobile-overlay');
+// Sets up the about section overlay with open/close functionality
+export function setupAboutUI({ timeManager, clock }) {
+     const aboutBtn = document.getElementById('about-btn');
+     const overlay = document.getElementById('about-overlay');
+     const closeBtn = document.getElementById('about-close');
 
-    // commented out for Nika so she can work in peace in the browser view of vsc
-    // if (isMobileDevice()) {
-    //     mobileOverlay?.classList.add('active');
-    //     document.body.classList.add('no-scroll');
-    //     timeManager?.pause(clock);
-    //     return;
-    // }
+     if (!aboutBtn || !overlay || !closeBtn) return;
 
-    const aboutBtn = document.getElementById('about-btn');
-    const overlay = document.getElementById('about-overlay');
-    const closeBtn = document.getElementById('about-close');
+     // Open overlay when about button is clicked
+     aboutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          overlay.classList.add('active');
+          document.body.classList.add('ui-open');
+          timeManager?.pause(clock); // Pause the clock/animation
+     });
 
-    if (!aboutBtn || !overlay || !closeBtn) return;
+     // Close overlay when close button or overlay background is clicked
+     closeBtn.addEventListener('click', close);
+     overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) close();
+     });
 
-    function openAbout() {
-        overlay.classList.add('active');
-        document.body.classList.add('no-scroll');
-        timeManager?.pause(clock);
-    }
+     // Close overlay when Escape key is pressed
+     window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                close();
+          }
+     });
 
-    function closeAbout() {
-        overlay.classList.remove('active');
-        document.body.classList.remove('no-scroll');
-        timeManager?.resume(clock);
-    }
+     // Helper function to close overlay and resume animation
+     function close() {
+          overlay.classList.remove('active');
+          document.body.classList.remove('ui-open');
+          timeManager?.resume(clock);
+     }
+}
 
-    aboutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openAbout();
-    });
+let infoEl = null; // DOM element for the info box
+let targetObject = null; // The 3D object being tracked
 
-    closeBtn.addEventListener('click', closeAbout);
+const offset = { x: -300, y: -180 }; // Pixel offset for info box positioning
 
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('active')) {
-            closeAbout();
-        }
-    });
+// Creates the sphere info UI element and attaches it to the page
+export function setupSphereInfoUI() {
+     infoEl = document.createElement('div');
+     infoEl.className = 'sphere-info';
+     infoEl.innerHTML = `
+          <button class="sphere-info-close">✕</button>
+          <h3></h3>
+          <p></p>
+     `;
+     document.body.appendChild(infoEl);
+
+     infoEl.querySelector('.sphere-info-close')
+          .addEventListener('click', hideSphereInfo);
+}
+
+// Displays the sphere info box with the object's name and description
+export function showSphereInfo(object) {
+     targetObject = object;
+     infoEl.querySelector('h3').textContent = object.name;
+     infoEl.querySelector('p').textContent =
+          'This sphere showcases a custom shader experiment.';
+     infoEl.classList.add('active');
+}
+
+// Hides the sphere info box
+export function hideSphereInfo() {
+     targetObject = null;
+     infoEl.classList.remove('active');
+}
+
+// Updates the info box position to follow the 3D object on screen
+export function updateSphereInfoPosition(camera) {
+     if (!targetObject || !infoEl.classList.contains('active')) return;
+
+     const pos = targetObject.position.clone();
+     pos.project(camera); // Convert 3D position to screen coordinates
+
+     const x = (pos.x * 0.5 + 0.5) * window.innerWidth + offset.x;
+     const y = (-pos.y * 0.5 + 0.5) * window.innerHeight + offset.y;
+
+     infoEl.style.transform = `translate(${x}px, ${y}px)`;
 }

@@ -10,12 +10,14 @@ html, body, div, canvas, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, form, in
     text-decoration: none;
 }
 
+
 /* Font */
 a, #sphereLabels>p {
     color: #777;
     font-family: Arial, sans-serif;
     font-size: 0.8rem;
 }
+
 
 /* Styles */
 body {
@@ -30,6 +32,7 @@ canvas {
 	top: 0;
 	left: 0;
 }
+
 
 /* Styles - Nav */
 nav {
@@ -63,6 +66,7 @@ nav a:hover::after {
     left: 0;
 }
 
+
 /* Styles - Labels */
 #sphereLabels {
     position: fixed;
@@ -72,6 +76,7 @@ nav a:hover::after {
 #sphereLabels>p {
     font-size: 1rem;
 }
+
 
 /* About Overlay */
 #about-overlay {
@@ -135,6 +140,7 @@ body.no-scroll {
     height: 100vh;
 }
 
+
 /* Mobile About Overlay */
 #mobile-overlay {
     position: fixed;
@@ -168,4 +174,52 @@ body.no-scroll {
     line-height: 1.6;
     font-size: 0.95rem;
     color: #ccc;
+}
+
+
+/* Sphere Info Popup */
+.sphere-info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-9999px, -9999px);
+    background: rgba(20, 20, 20, 0.9);
+    backdrop-filter: blur(20px);
+    color: #eee;
+    padding: 20px 24px;
+    width: 360px;
+    border-radius: 12px;
+    font-family: Arial, sans-serif;
+    pointer-events: auto;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 30;
+}
+
+.sphere-info.active {
+    opacity: 1;
+}
+
+.sphere-info h3 {
+    margin-bottom: 8px;
+    color: #c39be4;
+}
+
+.sphere-info p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.sphere-info-close {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    background: none;
+    color: #aaa;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.sphere-info-close:hover {
+    color: white;
 }

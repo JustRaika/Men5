@@ -31,15 +31,25 @@ export const materials = [
     createGlowMaterial(),
 ];
 
+// Erstellt Kugel-Meshes mit den gegebenen Materialien
 export function createSpheres(materials, geometry = new THREE.SphereGeometry(1, 32, 32)) {
     return materials.map((mat, i) => {
         const sphere = new THREE.Mesh(geometry, mat);
+
         sphere.name = "Sphere " + mat.name;
         sphere.position.x = i * 2.5;
+
+        // 🔑 DAS ist der entscheidende Teil
+        sphere.userData = {
+            title: mat.name,
+            description: `This sphere demonstrates the ${mat.name} shader.`,
+        };
+
         return sphere;
     });
 }
 
+// Erstellt untere Labels für die Kugeln
 export function createSphereLabels(materials) {
     const sphereLabelGroup = new THREE.Group();
     sphereLabelGroup.name = "Sphere Labels";
@@ -57,14 +67,22 @@ export function createSphereLabels(materials) {
     return sphereLabelGroup;
 }
 
+// Erstellt ein Partikel-System mit zufälligen Positionen in einer Kugel
 export function createParticlePoints(material, count) {
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
-        positions[i * 3 + 0] = (Math.random() - 0.5) * 5;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 5;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+        const theta = Math.random() * 3 * Math.PI; // Random angle
+        const phi = Math.acos(2 * Math.random() - 1); // Random angle for spherical coordinates
+
+        const x = Math.sin(phi) * Math.cos(theta);
+        const y = Math.sin(phi) * Math.sin(theta);
+        const z = Math.cos(phi);
+
+        positions[i * 3 + 0] = x * 1.5; // Scale to desired radius
+        positions[i * 3 + 1] = y * 1.25;
+        positions[i * 3 + 2] = z * 1.5;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));

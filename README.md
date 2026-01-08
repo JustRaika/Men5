@@ -172,7 +172,9 @@ float u = smoothstep( 0.0, 1.0, f );
 
 # ToDo
 - [x] Slay the shaders
-- [x] Background stop when on about page
+- [ ] Background stop when on about page
 - [x] Turn off mobile support
 - [ ] Page Load Animation
-- [ ] Make spheres clickable to show info about the shader
+- [x] Make spheres clickable to show info about the shader
+- [ ] Add sounds (ambient music + interaction sounds)
+- [ ] Make particel field smaller

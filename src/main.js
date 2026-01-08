@@ -11,7 +11,7 @@ import { createParticlePoints } from './assets.js';
 import { raycast, sphereRotationManager, updateCameraRotation, timeManager } from './utils.js';
 import { registerChunks } from './shaders/chunks/registerChunks.js';
 import { addStarBackground } from './setup/background.js';
-import { setupUI } from './setup/ui.js';
+import { setupAboutUI, setupSphereInfoUI, showSphereInfo, hideSphereInfo, updateSphereInfoPosition } from './setup/ui.js';
 
 const canvas = document.querySelector('#three');
 
@@ -53,7 +53,8 @@ function init() {
     clock = new THREE.Clock();
 
     // UI
-    setupUI({ timeManager, clock });
+    setupAboutUI({ timeManager, clock });
+    setupSphereInfoUI();
 
     // Events
     setupEvents(canvas, {
@@ -65,7 +66,7 @@ function init() {
         setMouseOnCanvas: val => mouseOnCanvas = val
     });
 
-    // Initial resize & scroll
+    // Resize & scroll
     onResize();
     onScroll();
 
@@ -80,6 +81,7 @@ function init() {
 function render() {
     timeManager.update(clock);
     if (!import.meta.env.PROD) stats.update();
+    updateSphereInfoPosition(camera);
     labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
 }
@@ -117,11 +119,13 @@ function onMouseMove(event) {
 function onClickStart() {
     if (!mouseOnCanvas) return;
 
-    // Raycast for rotation or pause
     raycast.getIntersects(mousePos, canvas, camera, scene, false);
+
     if (raycast.hit) {
+        showSphereInfo(raycast.hits[0].object);
         sphereRotationManager.start(mousePos);
     } else {
+        hideSphereInfo();
         timeManager.pause(clock);
     }
 }
