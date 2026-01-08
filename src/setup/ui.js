@@ -5,22 +5,28 @@ export function setupUI({ timeManager, clock }) {
 
     if (!aboutBtn || !overlay || !closeBtn) return;
 
+    function openAbout() {
+        overlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+        timeManager?.pause(clock);
+    }
+
+    function closeAbout() {
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        timeManager?.resume(clock);
+    }
+
     aboutBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        overlay.classList.add('active');
-        timeManager?.pause(clock);
+        openAbout();
     });
 
-    closeBtn.addEventListener('click', () => {
-        overlay.classList.remove('active');
-        timeManager?.resume(clock);
-    });
+    closeBtn.addEventListener('click', closeAbout);
 
-    // ESC zum Schließen (nice UX)
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && overlay.classList.contains('active')) {
-            overlay.classList.remove('active');
-            timeManager?.resume(clock);
+            closeAbout();
         }
     });
 }
