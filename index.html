@@ -15,9 +15,45 @@
   <body>
     <canvas id="three"></canvas> <!-- a canvas is need for three.js to render to -->
     <nav>
+      <a href="#" id="about-btn">About</a>
       <a href="https://github.com/JustRaika/Men5" target="_blank">Code</a>
       <a href="https://miro.com/app/board/uXjVJGpaUj0=/" target="_blank">Miro</a>
     </nav>
+      <div id="about-overlay">
+        <div class="about-content">
+          <button id="about-close">✕</button>
+
+          <h1>About</h1>
+          <h2>What is a Shader?</h2>
+          <p>
+            Shaders are programs or mini-programs that run on the graphic card to create visual effects
+            and enhance the overall visual experience of the games. Shaders work on the principle of providing 
+            code to various stages of the rendering pipeline to make high-quality objects. 
+          </p>
+          <p>Furthermore, shaders take advantage of specialized hardware in the graphics card that can 
+            generally run them faster than the CPU would be able to do. Their effect on the frame rate can 
+            vary significantly depending on how complicated they are, but they're adding a chunk of extra 
+            processing that is needed for each frame.
+          </p>
+
+          <h2>A little background of shaders in video games</h2>
+          <p>
+            In the early times, when shaders were initially designed, the purpose was to add visual effects 
+            to the shading, hence the name shaders in video games. Now, in recent years, the working of shaders 
+            has evolved, and they are used for different editing purposes in video games, such as hue and saturation, 
+            bloom, contrast, and motion blur.
+          </p>
+          <p>
+            Using shaders in the game engine takes off the strain from the CPU and works primarily using the 
+            graphical processor. Shaders play a vital role in rendering graphics by providing the GPU with 
+            vertex and texture data, enabling the generation of lighting and color information. Through this 
+            process, shaders contribute to the overall visual appearance of a scene or object in a game or 
+            application. By manipulating the vertex and texture inputs, shaders can create stunning 
+            visual effects, simulate various lighting conditions, and enhance the realism and immersion of 
+            the virtual environment.
+          </p>
+        </div>
+      </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
