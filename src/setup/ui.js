@@ -1,4 +1,16 @@
+import { isMobileDevice } from '../utils.js';
+
 export function setupUI({ timeManager, clock }) {
+    const mobileOverlay = document.getElementById('mobile-overlay');
+
+    // commented out for Nika so she can work in peace in the browser view of vsc
+    // if (isMobileDevice()) {
+    //     mobileOverlay?.classList.add('active');
+    //     document.body.classList.add('no-scroll');
+    //     timeManager?.pause(clock);
+    //     return;
+    // }
+
     const aboutBtn = document.getElementById('about-btn');
     const overlay = document.getElementById('about-overlay');
     const closeBtn = document.getElementById('about-close');
