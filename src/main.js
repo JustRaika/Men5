@@ -8,7 +8,7 @@ import { sharedUniforms } from './shaders/uniforms.js';
 import { materials, createSpheres, createSphereLabels } from './assets.js';
 import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
 import { createParticlePoints } from './assets.js';
-import { raycast, sphereRotationManager, updateCameraRotation, timeManager } from './utils.js';
+import { raycast, sphereRotationManager, updateCameraRotation, timeManager, clickManager } from './utils.js';
 import { registerChunks } from './shaders/chunks/registerChunks.js';
 import { addStarBackground } from './setup/background.js';
 import { setupAboutUI, setupSphereInfoUI, showSphereInfo, hideSphereInfo, updateSphereInfoPosition } from './setup/ui.js';
@@ -116,13 +116,13 @@ function onMouseMove(event) {
     updateCameraRotation(mousePos, canvas, camera);
 }
 
-function onClickStart() {
+function onClickStart(event) {
     if (!mouseOnCanvas) return;
 
     raycast.getIntersects(mousePos, canvas, camera, scene, false);
 
     if (raycast.hit) {
-        showSphereInfo(raycast.hits[0].object);
+        clickManager.start(clock, event);
         sphereRotationManager.start(mousePos);
     } else {
         hideSphereInfo();
@@ -130,9 +130,10 @@ function onClickStart() {
     }
 }
 
-function onClickEnd() {
+function onClickEnd(event) {
     sphereRotationManager.rotating = false;
     timeManager.resume(clock);
+    if(clickManager.stop(clock, event)) showSphereInfo(raycast.hits[0].object);
 }
 
 // ----------------- START -----------------

@@ -87,3 +87,28 @@ export function isMobileDevice() {
         window.matchMedia('(max-width: 768px)').matches
     );
 }
+
+// Erkennung von Klicks basierend auf Zeit und Distanz wischen Mouse Down und Up
+export const clickManager = {
+    CLICK_TIME: 0.2,
+    CLICK_DIST: 5,
+    isDown: false,
+    startPos: new THREE.Vector2(),
+    startTime: 0,
+    start(clock, e) {
+        this.isDown = true;
+        this.startTime = clock.getElapsedTime();
+        this.startPos.set(e.clientX, e.clientY);
+    },
+    stop(clock, e) {
+        this.isDown = false;
+        // get delta
+        const deltaTime = clock.getElapsedTime() - this.startTime;
+        const deltaDistance = this.startPos.distanceTo(
+            new THREE.Vector2(e.clientX, e.clientY)
+        );
+
+        const isClick = deltaTime < this.CLICK_TIME && deltaDistance < this.CLICK_DIST;
+        return isClick;
+    }
+};
