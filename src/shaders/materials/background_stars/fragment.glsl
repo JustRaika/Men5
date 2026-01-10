@@ -31,5 +31,14 @@ void main() {
 
     float brightness = star * circle * flicker;
 
-    gl_FragColor = vec4(vec3(brightness), 1.0);
+    // gradient
+    float gf = uv.y;
+    vec3 bgColorTop= vec3(0.06, 0.04, 0.1);
+    vec3 bgColorBottom = vec3(0.01, 0.01, 0.03);
+    vec3 bgColor = mix(bgColorBottom, bgColorTop, gf);
+
+    // mix
+    bgColor += brightness;
+
+    gl_FragColor = vec4(vec3(bgColor), 1.0);
 }

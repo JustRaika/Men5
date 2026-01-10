@@ -111,8 +111,8 @@ float n = snoise(vec4(v_position * 2.0, 0.3 * u_time));
 gl_FragColor = vec4(vec3(0.5 + 0.5 * n), 1.0);
 ```
 
-### fbm
-Fractial Brownian motion takes a noise and adds octaves to it. That means multiple layers of the noise multiplied. With every octave, the base noise function is called again. With the "step", an offset can be added to each layer (diffrent in each layer).
+### Fractal Brownian motion
+Fractal Brownian motion (fBm) takes a noise and adds octaves to it. That means multiple layers of the noise multiplied. With every octave, the base noise function is called again. With the "step", an offset can be added to each layer (diffrent in each layer).
 ```glsl
 vec3 pos = vec3(v_position.xy, 0.3 * u_time);
 float n = fbm(pos, 5, 2.0, 0.4, vec2(0.0, 0.0));
@@ -159,6 +159,13 @@ float u = f * f * ( 3.0 - 2.0 * f );
 float u = smoothstep( 0.0, 1.0, f );
 ```
 
+# Diffrent methods for complex shaders
+| Name | Method | Performance | Look | Pros / Cons | Notes |
+|------|---------------|------------|------|-------------|-------|
+| **Raymarched Volumetric** | Use a bounding mesh (sphere, cube, capsule) and compute the object procedurally per fragment using raymarching. Procedural noise, turbulence, and color are calculated in the fragment shader. | Medium–Heavy | ★★★★★ | Pros: Fully 3D volumetric, dynamic, controllable. Cons: Shader complexity, GPU heavy. | Mesh is only a container; standard for procedural volumes; good for fully dynamic effects. |
+| **Textured / Layered Mesh** | One or more meshes with ShaderMaterial using vertex displacement and procedural color/noise. Multiple overlapping layers can simulate depth and parallax. | High | ★★★★ | Pros: Lightweight, easy camera rotation, fakes volumetric depth. Cons: Limited internal volume; more layers = higher GPU cost. | Layering multiple meshes adds perceived volume; use additive blending and slight scale offsets for depth. |
+| **Particle System** | Represent the object as many small moving particles or points with color, size, and opacity. Procedural noise can drive motion or flicker. Additive blending is often used. | High | ★★★★ | Pros: Fast, scalable, easy sparks/trails. Cons: Hard to achieve smooth volumetric look, may appear “blobby”. | Works well combined with a base mesh to give depth. |
+
 # Resources
 - [https://threejs.org/]
 
@@ -168,6 +175,10 @@ float u = smoothstep( 0.0, 1.0, f );
 - [https://webgl-shaders.com/index.html] - 
 - [https://www.geeks3d.com/shader-library/] - A large collection of shaders
 - [https://github.com/vanrez-nez/awesome-glsl?tab=readme-ov-file] - A curated list of awesome GLSL libraries, resources and shiny things.
+- [https://github.com/stegu/webgl-noise] / [https://stegu.github.io/webgl-noise/webdemo/] - Noise Chunks for WebGL
+- [https://iquilezles.org/articles/] - Everything and really really advanced Math 
+- [https://catlikecoding.com/unity/tutorials/] - Unity Tutorials
+- [https://blog.42yeah.is/] - Shader, Math and Algorithms
 
 
 # ToDo
