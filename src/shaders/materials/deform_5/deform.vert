@@ -8,7 +8,7 @@ uniform float u_time;
 void main() {
     // Save the varyings
     v_position = position;
-    v_normal = normalize(normalMatrix * normal);
+    v_normal = normalize(normal);
 
     float height = 0.15;
 
