@@ -120,12 +120,12 @@ function onClickStart(event) {
     if (!mouseOnCanvas) return;
 
     raycast.getIntersects(mousePos, canvas, camera, scene, false);
+    hideSphereInfo();
 
     if (raycast.hit) {
         clickManager.start(clock, event);
         sphereRotationManager.start(mousePos);
     } else {
-        hideSphereInfo();
         timeManager.pause(clock);
     }
 }
