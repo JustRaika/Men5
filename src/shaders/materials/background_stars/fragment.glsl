@@ -13,6 +13,9 @@ void main() {
     float density = 600.0;
     vec2 grid = uv * density;
 
+    // change star visibility with time
+    grid = uv * density + u_time * 0.025;
+
     vec2 cell = fract(grid) - 0.5;
     vec2 id = floor(grid);
 
