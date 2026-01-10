@@ -15,6 +15,7 @@ import { createNoise2Material } from './shaders/materials/noise_fbm_9/material.j
 import { createWorleyNoiseMaterial } from './shaders/materials/noise_mix_10/material.js';
 import { createNoiseDeformMaterial } from './shaders/materials/noise_deform_11/material.js';
 import { createGlowMaterial } from './shaders/materials/innerglow_12/material.js';
+import { createWoodMaterial } from './shaders/materials/wood_13/material.js';
 
 export const materials = [
     createNormalMaterial(),
@@ -29,6 +30,7 @@ export const materials = [
     createWorleyNoiseMaterial(),
     createNoiseDeformMaterial(),
     createGlowMaterial(),
+    createWoodMaterial(),
 ];
 
 // Erstellt Kugel-Meshes mit den gegebenen Materialien
