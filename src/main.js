@@ -109,6 +109,11 @@ function onScroll() {
 function onMouseMove(event) {
     mousePos.set(event.clientX, event.clientY);
 
+    sharedUniforms.u_mouse.value.set(
+        (event.clientX / canvas.clientWidth) * 2 - 1,
+        -(event.clientY / canvas.clientHeight) * 2 + 1
+    );
+
     if (sphereRotationManager.rotating && raycast.hit) {
         sphereRotationManager.update(mousePos);
     }
