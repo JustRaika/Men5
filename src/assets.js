@@ -17,6 +17,7 @@ import { createNoiseDeformMaterial } from './shaders/materials/noise_deform_11/m
 import { createGlowMaterial } from './shaders/materials/innerglow_12/material.js';
 import { createWoodMaterial } from './shaders/materials/wood_13/material.js';
 import { createRaymarchMaterial } from './shaders/materials/raymarch_14/material.js';
+import { createMarbleMaterial } from './shaders/materials/marble_15/material.js';
 
 export const materials = [
     createNormalMaterial(),
@@ -33,6 +34,7 @@ export const materials = [
     createGlowMaterial(),
     createWoodMaterial(),
     createRaymarchMaterial(),
+    createMarbleMaterial(),
 ];
 
 // Erstellt Kugel-Meshes mit den gegebenen Materialien
