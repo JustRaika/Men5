@@ -20,7 +20,7 @@ varying vec3 v_camPos;
 
 // static definitions
 #define RADIUS 1.0
-#define MAP_OCTAVE 7
+#define MAP_OCTAVE 5
 #define STEPS 64
 
 // complex square -> base of the marble-pattern
@@ -112,6 +112,25 @@ void main() {
     // alpha
     float intensity = max(max(col.r, col.g), col.b);
     float alpha = smoothstep(0.0, 0.3, intensity);
+
+    if (tmm.x > 0.0)
+    {
+        vec3 hitPos = ro + tmm.x * rd;
+        vec3 nor = normalize(hitPos);
+
+        // classic Fresnel
+        float fresnel = pow(
+            1.0 - clamp(dot(nor, -rd), 0.0, 1.0),
+            3.0
+        );
+
+        // subtle glass highlight
+        vec3 glassTint = vec3(1.0); // white glass
+        col += glassTint * fresnel * 0.25;
+
+        // optional slight alpha boost at edges
+        alpha += fresnel * 0.1;
+    }
 
     gl_FragColor = vec4(col, alpha);
 }

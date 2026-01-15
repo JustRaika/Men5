@@ -5,7 +5,7 @@ import { sharedUniforms } from '../../uniforms.js';
 
 export function createMarbleMaterial() {    // change function name
     return new THREE.ShaderMaterial({
-        name: 'Marble',                     // change material name
+        name: 'Glas Marble',                     // change material name
         uniforms: { 
             ...sharedUniforms,
             // Custom uniforms
