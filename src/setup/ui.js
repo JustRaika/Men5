@@ -61,8 +61,7 @@ export function setupSphereInfoUI() {
 export function showSphereInfo(object) {
      targetObject = object;
      infoEl.querySelector('h3').textContent = object.name;
-     infoEl.querySelector('p').textContent =
-          'This sphere showcases a custom shader experiment.';
+     infoEl.querySelector('p').textContent = object.description;
      infoEl.classList.add('active');
 }
 

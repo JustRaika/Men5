@@ -53,6 +53,8 @@ function init() {
     const particleMat = createParticleMaterial();
 	const particleSystem = createParticlePoints(particleMat, 800);
     particleSystem.userData.group = particleGroup;
+    particleSystem.name = particleSphere.name;
+    particleSystem.description = particleSphere.description;
 	particleGroup.add(particleSystem);
 
     scene.remove(particleSphere);
@@ -151,7 +153,8 @@ function onClickStart(event) {
 function onClickEnd(event) {
     sphereRotationManager.rotating = false;
     timeManager.resume(clock);
-    if(clickManager.stop(clock, event)) showSphereInfo(raycast.hits[0].object);
+    // if click -> show sphere info
+    if(clickManager.stop(clock, event)) raycast.hits[0].object.userData.group ? showSphereInfo(raycast.hits[0].object.userData.group) : showSphereInfo(raycast.hits[0].object);
 }
 
 // ----------------- START -----------------
