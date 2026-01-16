@@ -6,6 +6,7 @@ export function addStarBackground(scene) {
     const material = createBackgroundStarsMaterial();
 
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.name = "Background";
     mesh.frustumCulled = false;
     mesh.renderOrder = -1;
 
