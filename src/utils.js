@@ -37,7 +37,7 @@ export const sphereRotationManager = {
     initialRotation: 0,
     startPos: 0,
     start(mouse) {
-        this.object = raycast.hits[0].object;
+        raycast.hits[0].object.userData.group ? this.object = raycast.hits[0].object.userData.group : this.object = raycast.hits[0].object;
         this.initialRotation = this.object.rotation.y;
         this.startPos = mouse.x;
         this.rotating = true;

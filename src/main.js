@@ -40,10 +40,23 @@ function init() {
     spheres = createSpheres(materials);
     spheres.forEach(s => scene.add(s));
 
-	const particleMat = createParticleMaterial();
+    // Group particle objects easy click and rotation
+    let particleSphere = scene.getObjectByName("Sphere Particles");
+    let particleGroup = new THREE.Group();
+    particleGroup.name = particleSphere.name;
+    particleGroup.description = particleSphere.description;
+    particleGroup.position.x = particleSphere.position.x;
+    particleSphere.position.x = 0;
+    particleSphere.userData.group = particleGroup;
+    particleGroup.add(particleSphere);
+
+    const particleMat = createParticleMaterial();
 	const particleSystem = createParticlePoints(particleMat, 800);
-	particleSystem.position.x += 15;
-	scene.add(particleSystem);
+    particleSystem.userData.group = particleGroup;
+	particleGroup.add(particleSystem);
+
+    scene.remove(particleSphere);
+    scene.add(particleGroup);
 
     // Labels
     labelRenderer = setupLabelRenderer(canvas);
@@ -124,7 +137,7 @@ function onMouseMove(event) {
 function onClickStart(event) {
     if (!mouseOnCanvas) return;
 
-    raycast.getIntersects(mousePos, canvas, camera, scene, false);
+    raycast.getIntersects(mousePos, canvas, camera, scene, true);
     hideSphereInfo();
 
     if (raycast.hit) {
