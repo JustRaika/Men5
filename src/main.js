@@ -17,7 +17,7 @@ const canvas = document.querySelector('#three');
 
 // globale Variablen
 let scene, camera, renderer, clock, stats, labelRenderer;
-let spheres = [];
+let spheres = [], sphereSpacing = 3.5;
 let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
 
 // ----------------- INIT -----------------
@@ -37,7 +37,7 @@ function init() {
     registerChunks();
     const sphereGroup = new THREE.Group();
     sphereGroup.name = "Spheres";
-    spheres = createSpheres(materials);
+    spheres = createSpheres(sphereSpacing, materials);
     spheres.forEach(s => scene.add(s));
 
     // Group particle objects easy click and rotation
@@ -60,7 +60,7 @@ function init() {
 
     // Labels
     labelRenderer = setupLabelRenderer(canvas);
-    scene.add(createSphereLabels(materials));
+    scene.add(createSphereLabels(sphereSpacing, materials));
 
     // Clock
     clock = new THREE.Clock();
@@ -114,7 +114,7 @@ function onScroll() {
     const scrollTop = window.scrollY;
     sharedUniforms.u_scroll.value = scrollTop;
 
-    const maxX = (materials.length - 1) * 2.5;
+    const maxX = (materials.length - 1) * sphereSpacing;
     const scrollFraction = scrollTop / (document.documentElement.scrollHeight - window.innerHeight);
     camera.position.x = scrollFraction * maxX;
 }

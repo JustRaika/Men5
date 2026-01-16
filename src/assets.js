@@ -38,12 +38,13 @@ export const materials = [
 ];
 
 // Erstellt Kugel-Meshes mit den gegebenen Materialien
-export function createSpheres(materials, geometry = new THREE.SphereGeometry(1, 32, 32)) {
+export function createSpheres(offset, materials, geometry = new THREE.SphereGeometry(1, 32, 32) ) {
     return materials.map((mat, i) => {
         const sphere = new THREE.Mesh(geometry, mat);
 
         sphere.name = "Sphere " + mat.name;
-        sphere.position.x = i * 2.5;
+        sphere.description = `This sphere demonstrates the ${mat.name} shader.`;
+        sphere.position.x = i * offset;
 
         // 🔑 DAS ist der entscheidende Teil
         sphere.userData = {
@@ -56,7 +57,7 @@ export function createSpheres(materials, geometry = new THREE.SphereGeometry(1, 
 }
 
 // Erstellt untere Labels für die Kugeln
-export function createSphereLabels(materials) {
+export function createSphereLabels(offset, materials) {
     const sphereLabelGroup = new THREE.Group();
     sphereLabelGroup.name = "Sphere Labels";
     const positionY = -1.4;
@@ -66,7 +67,7 @@ export function createSphereLabels(materials) {
         p.textContent = mat.name;
         const label = new CSS2DObject(p);
         label.name = mat.name;
-        label.position.set(i*2.5, positionY, 0);
+        label.position.set(i * offset, positionY, 0);
         sphereLabelGroup.add(label);
     });
 
