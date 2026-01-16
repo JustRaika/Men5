@@ -38,31 +38,36 @@ function init() {
     const sphereGroup = new THREE.Group();
     sphereGroup.name = "Spheres";
     spheres = createSpheres(sphereSpacing, materials);
-    spheres.forEach(s => scene.add(s));
+    spheres.forEach(s => sphereGroup.add(s));
 
     // Group particle objects easy click and rotation
-    let particleSphere = scene.getObjectByName("Sphere Particles");
-    let particleGroup = new THREE.Group();
-    particleGroup.name = particleSphere.name;
-    particleGroup.description = particleSphere.description;
-    particleGroup.position.x = particleSphere.position.x;
-    particleSphere.position.x = 0;
-    particleSphere.userData.group = particleGroup;
-    particleGroup.add(particleSphere);
+    let particleSphere = spheres.find(s => s.name === 'Particles');
+    if (particleSphere) {
+        let particleGroup = new THREE.Group();
+        particleGroup.name = particleSphere.name;
+        particleGroup.description = particleSphere.description;
+        particleGroup.position.x = particleSphere.position.x;
+        particleSphere.position.x = 0;
+        particleSphere.userData.group = particleGroup;
+        particleGroup.add(particleSphere);
 
-    const particleMat = createParticleMaterial();
-	const particleSystem = createParticlePoints(particleMat, 800);
-    particleSystem.userData.group = particleGroup;
-    particleSystem.name = particleSphere.name;
-    particleSystem.description = particleSphere.description;
-	particleGroup.add(particleSystem);
+        const particleMat = createParticleMaterial();
+        const particleSystem = createParticlePoints(particleMat, 800);
+        particleSystem.userData.group = particleGroup;
+        particleSystem.name = particleSphere.name;
+        particleSystem.description = particleSphere.description;
+        particleGroup.add(particleSystem);
 
-    scene.remove(particleSphere);
-    scene.add(particleGroup);
+        sphereGroup.remove(particleSphere);
+        sphereGroup.add(particleGroup);
+    }
 
     // Labels
     labelRenderer = setupLabelRenderer(canvas);
-    scene.add(createSphereLabels(sphereSpacing, materials));
+    sphereGroup.add(createSphereLabels(sphereSpacing, materials));
+
+    // Add scene
+    scene.add(sphereGroup);
 
     // Clock
     clock = new THREE.Clock();

@@ -15,9 +15,8 @@ html, body, div, canvas, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, form, in
 a, #sphereLabels>p {
     color: #777;
     font-family: Arial, sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 }
-
 
 /* Styles */
 body {
@@ -205,9 +204,18 @@ body.no-scroll {
     color: #c39be4;
 }
 
-.sphere-info p {
+.sphere-info p, .sphere-info div {
     font-size: 0.85rem;
     line-height: 1.5;
+}
+
+.sphere-info a {
+    border-bottom: #c39be4 solid 1px;
+    transition: 0.1s ease-in-out;
+}
+
+.sphere-info a:hover {
+    color: #c39be4;
 }
 
 .sphere-info-close {

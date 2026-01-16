@@ -49,7 +49,7 @@ export function setupSphereInfoUI() {
      infoEl.innerHTML = `
           <button class="sphere-info-close">✕</button>
           <h3></h3>
-          <p></p>
+          <div></div>
      `;
      document.body.appendChild(infoEl);
 
@@ -61,7 +61,7 @@ export function setupSphereInfoUI() {
 export function showSphereInfo(object) {
      targetObject = object;
      infoEl.querySelector('h3').textContent = object.name;
-     infoEl.querySelector('p').textContent = object.description;
+     infoEl.querySelector('div').innerHTML = object.description;
      infoEl.classList.add('active');
 }
 
