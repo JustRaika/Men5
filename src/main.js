@@ -25,7 +25,7 @@ function init() {
     if (!canvas) return console.error('Canvas not found!');
     ({ scene, camera } = setupScene(canvas));
     renderer = setupRenderer(canvas);
-    addLights(scene);
+    // addLights(scene);
 
     // Stats
     if (!import.meta.env.PROD) {
