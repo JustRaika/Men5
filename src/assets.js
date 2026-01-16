@@ -43,7 +43,7 @@ export function createSpheres(offset, materials, geometry = new THREE.SphereGeom
         const sphere = new THREE.Mesh(geometry, mat);
 
         sphere.name = mat.name;
-        sphere.description = `This sphere demonstrates the ${mat.name} shader. <a href="#">This is a Link</a>`;
+        sphere.description = mat.userData.description;
         sphere.position.x = i * offset;
 
         // 🔑 DAS ist der entscheidende Teil
