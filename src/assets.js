@@ -3,25 +3,25 @@
 import * as THREE from 'three';
 import { CSS2DObject } from 'three/examples/jsm/Addons.js';
 
-import { createNormalMaterial } from './shaders/materials/normal_1/material.js';
-import { createFirstMaterial } from './shaders/materials/first_2/material.js';
-import { createZebraMaterial } from './shaders/materials/zebra_3/material.js';
-import { createPositionMaterial } from './shaders/materials/position_4/material.js';
-import { createDeformMaterial } from './shaders/materials/deform_5/material.js';
-import { createLightMaterial } from './shaders/materials/light_6/material.js';
-import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
-import { createNoiseMaterial } from './shaders/materials/noise_chunks_8/material.js';
-import { createNoise2Material } from './shaders/materials/noise_fbm_9/material.js';
-import { createWorleyNoiseMaterial } from './shaders/materials/noise_mix_10/material.js';
-import { createNoiseDeformMaterial } from './shaders/materials/noise_deform_11/material.js';
-import { createGlowMaterial } from './shaders/materials/innerglow_12/material.js';
-import { createWoodMaterial } from './shaders/materials/wood_13/material.js';
-import { createRaymarchMaterial } from './shaders/materials/raymarch_14/material.js';
-import { createMarbleMaterial } from './shaders/materials/marble_15/material.js';
+import { createFirstMaterial } from './shaders/materials/01_first/material.js';
+import { createNormalMaterial } from './shaders/materials/02_normal/material.js';
+import { createZebraMaterial } from './shaders/materials/03_zebra/material.js';
+import { createPositionMaterial } from './shaders/materials/04_position/material.js';
+import { createDeformMaterial } from './shaders/materials/05_deform/material.js';
+import { createLightMaterial } from './shaders/materials/06_light/material.js';
+import { createParticleMaterial } from './shaders/materials/07_particles/material.js';
+import { createNoiseMaterial } from './shaders/materials/08_noise_chunks/material.js';
+import { createNoise2Material } from './shaders/materials/09_noise_fbm/material.js';
+import { createWorleyNoiseMaterial } from './shaders/materials/10_noise_mix/material.js';
+import { createNoiseDeformMaterial } from './shaders/materials/11_noise_deform/material.js';
+import { createGlowMaterial } from './shaders/materials/12_innerglow/material.js';
+import { createWoodMaterial } from './shaders/materials/13_wood/material.js';
+import { createRaymarchMaterial } from './shaders/materials/14_raymarch/material.js';
+import { createMarbleMaterial } from './shaders/materials/15_marble/material.js';
 
 export const materials = [
-    createNormalMaterial(),
     createFirstMaterial(),
+    createNormalMaterial(),
     createZebraMaterial(),
     createPositionMaterial(),
     createDeformMaterial(),

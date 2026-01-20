@@ -6,7 +6,7 @@ import { setupScene, addLights } from './setup/scene.js';
 import { setupEvents } from './setup/events.js';
 import { sharedUniforms } from './shaders/uniforms.js';
 import { materials, createSpheres, createSphereLabels } from './assets.js';
-import { createParticleMaterial } from './shaders/materials/particles_7/material.js';
+import { createParticleMaterial } from './shaders/materials/07_particles/material.js';
 import { createParticlePoints } from './assets.js';
 import { raycast, sphereRotationManager, updateCameraRotation, timeManager, clickManager } from './utils.js';
 import { registerChunks } from './shaders/chunks/registerChunks.js';
