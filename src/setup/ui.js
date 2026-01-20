@@ -61,7 +61,12 @@ export function setupSphereInfoUI() {
 export function showSphereInfo(object) {
      targetObject = object;
      infoEl.querySelector('h3').textContent = object.name;
-     infoEl.querySelector('div').innerHTML = object.description;
+     infoEl.querySelector('div').innerHTML = object.description ? object.description : `
+          Currently is no description available.
+          <br/>
+          <br/>
+          <a href="https://github.com/JustRaika/Men5/tree/main/src/shaders/materials" target="_blank">Our Shader Programs</a>    
+     `;
      infoEl.classList.add('active');
 }
 
