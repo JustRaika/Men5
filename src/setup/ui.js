@@ -74,6 +74,9 @@ export function showSphereInfo(object) {
 export function hideSphereInfo() {
      targetObject = null;
      infoEl.classList.remove('active');
+     infoEl.addEventListener('transitionend', () => {
+          infoEl.style.transform = 'none';
+     }, { once: true });
 }
 
 // Updates the info box position to follow the 3D object on screen
