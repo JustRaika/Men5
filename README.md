@@ -1,11 +1,11 @@
-# The Shader Planetarium
+# The Shader Planetarium <!-- omit from toc -->
 A mentoring project in collaboration to get to know the realm of shaders in computer graphics. 
 
-# Contributors
+# Contributors <!-- omit from toc -->
 - [Jan Schwegler](https://github.com/JanSchwegler)
 - [Dominika Degtyareva](https://github.com/JustRaika)
 
-# Table of Contents
+# Table of Contents <!-- omit from toc -->
 - [1. Tech Setup](#1-tech-setup)
 - [2. How to install and run](#2-how-to-install-and-run)
 - [3. Shader Basics](#3-shader-basics)
