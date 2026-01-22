@@ -40,7 +40,7 @@ export function setupAboutUI({ timeManager, clock }) {
      // Close overlay when Escape key is pressed
      window.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && overlay.classList.contains('active')) {
-                close();
+               close();
           }
      });
 
@@ -90,7 +90,7 @@ export function hideSphereInfo() {
      targetObject = null;
      infoEl.classList.remove('active');
      infoEl.addEventListener('transitionend', () => {
-          infoEl.style.transform = 'none';
+          infoEl.style.removeProperty('transform');
      }, { once: true });
 }
 
