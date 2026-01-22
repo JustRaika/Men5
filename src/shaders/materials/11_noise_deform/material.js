@@ -14,8 +14,7 @@ export function createNoiseDeformMaterial() {    // change function name
                 <br/>
                 <br/>
                 Check out our
-                <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/11_noise_deform/vertex.glsl" target="_blank">Vertex Shader</a>
-                , 
+                <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/11_noise_deform/vertex.glsl" target="_blank">Vertex Shader</a>, 
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/11_noise_deform/fragment.glsl" target="_blank">Fragment Shader</a>
                  & 
                 <a href="https://github.com/JustRaika/Men5/tree/main/src/shaders/chunks" target="_blank">Noise Chunks</a>
