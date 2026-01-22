@@ -14,7 +14,7 @@ export function createNoise2Material() {    // change function name
                 Check out our
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/chunks/noise_fbm.glsl" target="_blank">Fractal Brownian Motion Chunk</a>
                  & 
-                <a href="https://github.com/JustRaika/Men5/tree/main/src/shaders/materials/09_noise_fbm" target="_blank">Fragment Shader</a>
+                <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/09_noise_fbm/fragment.glsl" target="_blank">Fragment Shader</a>
             `,
         },
         uniforms: { 
