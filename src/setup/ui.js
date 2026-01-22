@@ -14,6 +14,7 @@ export function setupAboutUI({ timeManager, clock }) {
           overlay.classList.add('active');
           document.body.classList.add('ui-open');
           timeManager?.pause(clock); // Pause the clock/animation
+          hideSphereInfo();
      });
 
      // Close overlay when close button or overlay background is clicked
