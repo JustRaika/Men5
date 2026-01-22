@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 /* Reset */
 * {
     box-sizing: border-box;
@@ -12,11 +14,30 @@ html, body, div, canvas, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, form, in
 
 
 /* Font */
-a, #sphereLabels>p {
-    color: #777;
-    font-family: Arial, sans-serif;
-    font-size: 0.85rem;
+div, p, a {
+    font-family: "Inter",Arial, sans-serif;
+    font-optical-sizing: auto;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 300;
 }
+
+h1, h2, h3 {
+    font-family: "DynaPuff",Arial, sans-serif;
+}
+
+a {
+    color: #c39be4;
+    font-weight: 500;
+}
+a:hover {
+    color: #796e81;
+}
+
+nav a, #sphereLabels>p {
+    color: #796e81;
+}
+
 
 /* Styles */
 body {
@@ -54,11 +75,11 @@ nav a::after {
     bottom: 0px;
     width: 0%;
     height: 1px;
-    background-color: #ccc;
+    background-color: #eee;
     transition: ease-in-out 0.2s;
 }
 nav a:hover {
-    color: #ccc;
+    color: #eee;
 }
 nav a:hover::after {
     width: 100%;
@@ -97,27 +118,26 @@ nav a:hover::after {
     position: relative;
     width: 100%;
     height: 100%;
-    padding: 140px;
+    padding: 140px 25% 50px;
     background: rgba(20, 20, 20, 0.85);
     color: #eee;
     border-radius: 0;
-    font-family: Arial, sans-serif;
+    overflow: auto;
 }
 
 .about-content h1 {
-    margin-bottom: 30px;
+    margin-bottom: 32px;
     color: #9347d2;
 }
 
 .about-content h2 {
-    margin-bottom: 10px;
-    margin-top: 20px;
+    margin-bottom: 16px;
+    margin-top: 32px;
     color: #c39be4;
 }
 
 .about-content p {
-    line-height: 1.8;
-    font-size: 0.95rem;
+    line-height: 1.7;
 }
 
 #about-close {
@@ -160,8 +180,6 @@ body.no-scroll {
     max-width: 420px;
     padding: 40px;
     text-align: center;
-    color: #eee;
-    font-family: Arial, sans-serif;
 }
 
 .mobile-content h1 {
@@ -170,9 +188,7 @@ body.no-scroll {
 }
 
 .mobile-content p {
-    line-height: 1.6;
-    font-size: 0.95rem;
-    color: #ccc;
+    color: #eee;
 }
 
 
@@ -186,9 +202,8 @@ body.no-scroll {
     backdrop-filter: blur(20px);
     color: #eee;
     padding: 20px 24px;
-    width: 360px;
+    width: 400px;
     border-radius: 12px;
-    font-family: Arial, sans-serif;
     pointer-events: auto;
     opacity: 0;
     transition: opacity 0.2s ease;
@@ -200,13 +215,10 @@ body.no-scroll {
 }
 
 .sphere-info h3 {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     color: #c39be4;
-}
-
-.sphere-info p, .sphere-info div {
-    font-size: 0.85rem;
-    line-height: 1.5;
+    font-size: 1.7rem;
+    line-height: 1.3;
 }
 
 .sphere-info a {
@@ -215,7 +227,7 @@ body.no-scroll {
 }
 
 .sphere-info a:hover {
-    color: #c39be4;
+    color: #796e81;
 }
 
 .sphere-info-close {

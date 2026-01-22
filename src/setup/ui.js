@@ -41,7 +41,7 @@ export function setupAboutUI({ timeManager, clock }) {
 let infoEl = null; // DOM element for the info box
 let targetObject = null; // The 3D object being tracked
 
-const offset = { x: -300, y: -180 }; // Pixel offset for info box positioning
+const offset = { x: -400, y: -180 }; // Pixel offset for info box positioning
 
 // Creates the sphere info UI element and attaches it to the page
 export function setupSphereInfoUI() {
