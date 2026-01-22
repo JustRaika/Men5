@@ -129,7 +129,7 @@ void main() {
         col += glassTint * fresnel * 0.25;
 
         // optional slight alpha boost at edges
-        alpha += fresnel * 0.1;
+        alpha += fresnel * 0.8;
     }
 
     gl_FragColor = vec4(col, alpha);
