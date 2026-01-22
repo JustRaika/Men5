@@ -15,7 +15,7 @@ html, body, div, canvas, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li, form, in
 
 /* Font */
 div, p, a {
-    font-family: "Inter",Arial, sans-serif;
+    font-family: "Inter", Arial, sans-serif;
     font-optical-sizing: auto;
     font-size: 0.9rem;
     line-height: 1.6;
@@ -23,7 +23,7 @@ div, p, a {
 }
 
 h1, h2, h3 {
-    font-family: "DynaPuff",Arial, sans-serif;
+    font-family: "DynaPuff", Arial, sans-serif;
 }
 
 a {
