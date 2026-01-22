@@ -31,8 +31,8 @@ export const materials = [
     createNoise2Material(),
     createWorleyNoiseMaterial(),
     createNoiseDeformMaterial(),
-    createGlowMaterial(),
     createWoodMaterial(),
+    createGlowMaterial(),
     createRaymarchMaterial(),
     createMarbleMaterial(),
 ];
