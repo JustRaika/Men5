@@ -11,7 +11,7 @@ import { createParticlePoints } from './assets.js';
 import { raycast, sphereRotationManager, updateCameraRotation, timeManager, clickManager } from './utils.js';
 import { registerChunks } from './shaders/chunks/registerChunks.js';
 import { addStarBackground } from './setup/background.js';
-import { setupAboutUI, setupSphereInfoUI, showSphereInfo, hideSphereInfo, updateSphereInfoPosition } from './setup/ui.js';
+import { setupMobileUI, setupAboutUI, setupSphereInfoUI, showSphereInfo, hideSphereInfo, updateSphereInfoPosition } from './setup/ui.js';
 
 const canvas = document.querySelector('#three');
 
@@ -73,6 +73,7 @@ function init() {
     clock = new THREE.Clock();
 
     // UI
+    setupMobileUI({ timeManager, clock });
     setupAboutUI({ timeManager, clock });
     setupSphereInfoUI();
 
