@@ -20,6 +20,9 @@ export const raycast = {
         
         this.getMouseRay(mouse, canvas, camera);
         this.hits = this.raycaster.intersectObjects(scene.children, getChildren);
+        // exclude background from hits
+        if (this.hits[0]?.object?.name === "Background") this.hits = [];
+
         if (this.hits.length > 0) {
             this.hit = true;
         } else {
