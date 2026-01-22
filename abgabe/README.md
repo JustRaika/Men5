@@ -2,7 +2,7 @@ Titel der Arbeit: The Shader Planetarium
 
 Name und Vorname des/der Studierenden: Dominika Degtyareva & Jan Schwegler
 
-Gruppenarbeit: Grundsätzlich haben wir das Projekt gemeinsam erarbeitet und einander unterstützt. Mit der Mentorenwahl hat sich Nika zu Beginn vermehrt mit den technischen Feinheiten und Möglichkeiten für das Projekt auseinandergesetzt und dieses aufgesetzt, währen Jan sich schon in die Basis und Ressourcen von Shadern eingelesen hat. Durch häufige Absprachen haben wir unser Know-how ausgetauscht und unterstützt und organisiert.
+Gruppenarbeit: Grundsätzlich haben wir das Projekt gemeinsam erarbeitet und einander unterstützt. Mit der Mentorenwahl hat sich Nika zu Beginn vermehrt mit den technischen Feinheiten und Möglichkeiten für das Projekt auseinandergesetzt und dieses aufgesetzt, während Jan sich etwas in die Basis und Ressourcen von Shadern eingelesen hat. Durch häufige Absprachen haben wir unser Know-how ausgetauscht und unterstützt und organisiert. Nika hat besonders von Jan's Wissen zu 3js und 3D-Raum profitiert, während Nika ihr Basiswissen rund um WEbGL mit Jan geteilt hat. Beide haben sich mit dem Schreiben der Shader beschäftigt und diese in die Szene integriert. Die Dokumentation und Webseite wurde von beiden gemeinsam erstellt.
 
 Modulname / Semester / Jahr: MEN5 HS25
 
