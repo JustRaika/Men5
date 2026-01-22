@@ -13,7 +13,7 @@ export function createNoiseDeformMaterial() {    // change function name
                 Additionally, we encountered the limitations and loss of detail that occur when passing deformed vertex data to the fragment shader. Because of this, we run the same noise calculations in both the vertex and the fragment shader to preserve detail.
                 <br/>
                 <br/>
-                Check out our
+                Check out the
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/11_noise_deform/vertex.glsl" target="_blank">Vertex Shader</a>, 
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/11_noise_deform/fragment.glsl" target="_blank">Fragment Shader</a>
                  & 

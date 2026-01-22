@@ -13,7 +13,7 @@ export function createPositionMaterial() {
                 Because the shader is drawn in 2D using UV coordinates, the UV seam is visible on the surface.
                 <br/>
                 <br/>
-                Check out our
+                Check out the
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/04_position/position.frag" target="_blank">Fragment Shader</a>
             `,
         },

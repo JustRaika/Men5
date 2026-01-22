@@ -15,7 +15,7 @@ export function createRaymarchMaterial() {    // change function name
                 Raymarching is particularly useful for creating complex shapes without geometry and for visualizing volumes or semi-transparent objects.
                 <br/>
                 <br/>
-                Check out our
+                Check out the
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/14_raymarch/fragment.glsl" target="_blank">Fragment Shader</a>
             `,
         },

@@ -11,7 +11,7 @@ export function createWorleyNoiseMaterial() {    // change function name
                 While experimenting with different noise functions, we learned how to load and combine two of them: Worley noise and Simplex noise. This shader demonstrates how mixing these two noise types can produce interesting visual effects. The Worley noise creates a cellular pattern, while the Simplex noise adds smooth variations.
                 <br/>
                 <br/>
-                Check out our
+                Check out the
                 <a href="https://github.com/JustRaika/Men5/tree/main/src/shaders/chunks" target="_blank">Noise Chunks</a>
                  & 
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/10_noise_mix/fragment.glsl" target="_blank">Fragment Shader</a>

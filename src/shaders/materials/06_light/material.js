@@ -13,7 +13,7 @@ export function createLightMaterial() {
                 Because the light position is defined directly in the shader as a simple vec3, it does not take the sphere's rotation into account.
                 <br/>
                 <br/>
-                Check out our
+                Check out the
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/06_light/fragment.glsl" target="_blank">Fragment Shader</a>
             `,
         },

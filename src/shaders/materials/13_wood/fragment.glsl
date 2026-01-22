@@ -1,19 +1,13 @@
 precision mediump float;
 
-// Common uniforms
 uniform float u_time;
-// uniform vec2 u_scroll;
-// uniform vec2 u_resolution;
 
-// varyings
 varying vec3 v_normal;
 varying vec3 v_position;
 
 // include chunks
 #include <noisebase>
 #include <simplex3D>
-// #include <perlin3D>
-// #include <worley3D>
 #include <fbm>
 
 void main() {

@@ -1,6 +1,5 @@
 precision mediump float;
 
-// declare the varyings to pass data to the fragment shader
 varying vec3 v_viewPosition;
 varying vec3 v_normal;
 

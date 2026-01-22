@@ -1,9 +1,7 @@
 precision mediump float;
 
-// Common uniforms
 uniform float u_time;
 
-// varyings
 varying vec3 v_normal;
 
 void main() {

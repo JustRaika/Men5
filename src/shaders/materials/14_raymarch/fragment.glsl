@@ -1,12 +1,7 @@
 precision highp float;
 
-// Common uniforms
-// uniform float u_time;
-// uniform vec2 u_scroll;
-// uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 
-// varyings
 varying vec3 v_normal;
 varying vec3 v_position;
 varying vec3 v_camPos;

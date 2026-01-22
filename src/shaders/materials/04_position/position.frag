@@ -1,9 +1,7 @@
 precision mediump float;
 
-// uniforms
 uniform float u_time;
 
-// varyings
 varying vec3 v_position;
 varying vec2 v_uv;
 varying vec3 v_normal;
@@ -27,6 +25,5 @@ void main() {
     // draw stem
     col *= 1.0 - (1.0 - smoothstep( r, r+0.003, abs(q.x + 0.2 * sin( 1.8 * q.y )))) * (1.0 - smoothstep( 0.0, 0.1, q.y ));
 
-    // Fragment shader output
     gl_FragColor = vec4(col, 1.0);
 }
