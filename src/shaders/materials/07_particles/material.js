@@ -12,6 +12,7 @@ export function createParticleMaterial() {    // change function name
                 The vertex shader positions the particles in space and adjusts their size based on distance to the camera. 
                 The fragment shader gives each particle a soft, glowing appearance by calculating the distance from the center of the point and applying a radial gradient.
                 <br/>
+                <br/>
                 Check out the 
                 <a href="https://github.com/JustRaika/Men5/blob/main/src/shaders/materials/07_particles/vertex.glsl" target="_blank">Vertex Shader</a>
                  & 
