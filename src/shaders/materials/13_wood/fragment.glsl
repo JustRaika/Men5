@@ -16,13 +16,6 @@ varying vec3 v_position;
 // #include <worley3D>
 #include <fbm>
 
-float lines(in vec2 pos, float b){
-    float scale = 10.0;
-    pos *= scale;
-    return smoothstep(0.0,
-                    .5+b*.5,
-                    abs((sin(pos.x*3.1415)+b*2.0))*.5);
-}
 void main() {
     vec3 p = normalize(v_position);
     float radius = length(p.yz); // direction
