@@ -33,6 +33,7 @@ A mentoring project in collaboration to get to know the realm of shaders in comp
   - [6.2. Map UV to -1,1](#62-map-uv-to--11)
   - [6.3. Map from -1,1 to 0,1](#63-map-from--11-to-01)
   - [6.4. Custom smoothstep function of f](#64-custom-smoothstep-function-of-f)
+  - [6.5. Raymarch - basic SDF setup](#65-raymarch---basic-sdf-setup)
 - [7. Diffrent methods for complex shaders](#7-diffrent-methods-for-complex-shaders)
 - [8. Resources](#8-resources)
   - [8.1. Three.js](#81-threejs)
@@ -60,13 +61,13 @@ A mentoring project in collaboration to get to know the realm of shaders in comp
 
 3. Install dependencies
      ```bash
-        npm install
+    npm install
      ```
     -> This project requires Node (v20 or higher) and npm (bundled with Node.js). If you don't have Node, please download and install it from https://nodejs.org/.
 
 4. Start the development server
      ```bash
-        npm run dev
+    npm run dev
     ``` 
 
 5. Open your browser and go to `http://localhost:5173/Men5/dist/` (or the URL provided in the terminal). Ensure the port is available.
@@ -325,6 +326,57 @@ gl_FragColor = vec4(vec3(0.5 + 0.5 * n), 1.0); // 0,1
 ```glsl
 float u = f * f * ( 3.0 - 2.0 * f );
 float u = smoothstep( 0.0, 1.0, f );
+```
+
+## 6.5. Raymarch - basic SDF setup
+```glsl
+// raymarch definitions
+#define STEPS 64 // loop steps
+#define MAX_DIST 5.0 // far plane from camera -> cam.pos: 4.0 + radius: 0.5
+#define SURF_DIST 0.001 // acurracy threshold 
+
+// signed distance to sphere -> SDF
+float sdfSphere(vec3 p, float r) {
+    return length(p) - r; // returns where the current ray point is -> negative: in the sphere / positive: outside / 0: surface
+}
+
+// scene SDF
+float map(vec3 p) {
+    return sdfSphere(p, 0.5);
+}
+
+// raymarch
+float raymarch(vec3 ro, vec3 rd) {
+    float d = 0.0; // current traveled distance along ray
+    for (int i = 0; i < STEPS; i++) {
+        vec3 p = ro + rd * d; // get point at travel distance
+        float h = map(p); // check distance SDF
+        if (h < SURF_DIST || d > MAX_DIST) break; // break on hit or if nothing is hit after MAX_DIST
+        d += h; // jump to surface
+    }
+    return d; // return distance to hit
+}
+
+void main() {
+    // ray direction in object space
+    vec3 ro = v_camPos; // ray origin
+    vec3 rd = normalize(v_position - v_camPos); // ray direction
+
+    float d = raymarch(ro, rd); // find hit of every ray (distance from camera)
+
+    vec3 p = ro + rd * d; // hit position in space
+    
+    float dist = map(p); // Signed distance to surface (in ASD position and scale)
+
+    // SURFACE
+    float surface = smoothstep(0.03, 0.0, abs(dist));
+
+    vec3 baseColor = vec3(0.29, 0.2, 0.53);
+    vec3 color = baseColor * surface * 1.5;
+    float alpha = clamp(surface, 0.0, 1.0);
+
+    gl_FragColor = vec4(color, alpha);
+}
 ```
 
 # 7. Diffrent methods for complex shaders
