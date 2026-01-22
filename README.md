@@ -79,6 +79,7 @@ The technical research for  the shaders can be found is our [Wiki.](https://gith
 - [https://iquilezles.org/articles/] - Everything and really really advanced Math
 - [https://catlikecoding.com/unity/tutorials/] - Unity Tutorials
 - [https://blog.42yeah.is/] - Shader, Math and Algorithms
+- [https://www.youtube.com/@acegikmo]
 
 
 # 6. ToDo
