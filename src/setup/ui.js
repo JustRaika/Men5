@@ -5,13 +5,13 @@ import { isMobileDevice } from '../utils.js';
 export function setupMobileUI({ timeManager, clock }) {
      const mobileOverlay = document.getElementById('mobile-overlay');
 
-     // // commented out for Nika so she can work in peace in the browser view of vsc
-     // if (isMobileDevice()) {
-     //      mobileOverlay?.classList.add('active');
-     //      document.body.classList.add('no-scroll');
-     //      timeManager?.pause(clock);
-     //      return;
-     // }
+     // commented out for Nika so she can work in peace in the browser view of vsc
+     if (isMobileDevice()) {
+          mobileOverlay?.classList.add('active');
+          document.body.classList.add('no-scroll');
+          timeManager?.pause(clock);
+          return;
+     }
 }
 
 // Sets up the about section overlay with open/close functionality
