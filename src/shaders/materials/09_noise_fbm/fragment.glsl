@@ -1,6 +1,7 @@
 precision mediump float;
 
 uniform float u_time;
+uniform float u_sceneFade;
 
 varying vec3 v_position;
 
@@ -23,4 +24,6 @@ void main() {
     float n = fbm(sp, 5, 2.0, 0.4, vec2(0.0, 0.0));
 
     gl_FragColor = vec4(vec3(0.5 + 0.5 * n), 1.0);
+    
+    gl_FragColor.rgb *= u_sceneFade;
 }

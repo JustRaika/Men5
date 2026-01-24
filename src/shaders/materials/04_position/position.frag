@@ -1,10 +1,12 @@
 precision mediump float;
 
 uniform float u_time;
+uniform float u_sceneFade;
 
 varying vec3 v_position;
 varying vec2 v_uv;
 varying vec3 v_normal;
+
 
 void main() {
     vec2 p = v_uv*2.0;
@@ -26,4 +28,6 @@ void main() {
     col *= 1.0 - (1.0 - smoothstep( r, r+0.003, abs(q.x + 0.2 * sin( 1.8 * q.y )))) * (1.0 - smoothstep( 0.0, 0.1, q.y ));
 
     gl_FragColor = vec4(col, 1.0);
+    
+    gl_FragColor.rgb *= u_sceneFade;
 }

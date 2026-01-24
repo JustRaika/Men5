@@ -1,6 +1,7 @@
 precision mediump float;
 
 uniform float u_time;
+uniform float u_sceneFade;
 
 varying vec3 v_normal;
 varying vec3 v_viewPosition;
@@ -37,4 +38,6 @@ void main() {
         glowColor * glow * 2.0;
 
     gl_FragColor = vec4(color, 1.0);
+    
+    gl_FragColor.rgb *= u_sceneFade;
 }

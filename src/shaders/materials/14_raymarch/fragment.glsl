@@ -1,6 +1,7 @@
 precision highp float;
 
 uniform vec2 u_mouse;
+uniform float u_sceneFade;
 
 varying vec3 v_normal;
 varying vec3 v_position;
@@ -57,4 +58,6 @@ void main() {
     float alpha = clamp(surface, 0.0, 1.0);
 
     gl_FragColor = vec4(color, alpha);
+    
+    gl_FragColor.rgb *= u_sceneFade;
 }

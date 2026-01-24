@@ -1,6 +1,7 @@
 precision mediump float;
 
 uniform float u_time;
+uniform float u_sceneFade;
 
 varying vec3 v_normal;
 
@@ -18,4 +19,6 @@ void main() {
     col *= dProd;
 
     gl_FragColor = vec4(col, 1.0);
+    
+    gl_FragColor.rgb *= u_sceneFade;
 }

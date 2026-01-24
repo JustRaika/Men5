@@ -1,6 +1,7 @@
 precision mediump float;
 
 varying vec3 v_color;
+uniform float u_sceneFade;
 
 void main() {
     
@@ -9,4 +10,6 @@ void main() {
     if (dist > 0.5) discard;
 
     gl_FragColor = vec4(v_color, 1.0);
+    
+    gl_FragColor.rgb *= u_sceneFade;
 }

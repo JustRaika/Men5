@@ -1,5 +1,7 @@
 precision mediump float;
 
+uniform float u_sceneFade;
+
 varying vec3 v_position;
 varying vec3 v_normal;
 
@@ -44,4 +46,6 @@ void main() {
     color = mix(color, high, smoothstep(0.4, 1.0, height));
 
     gl_FragColor = vec4(vec3(color) , 1.0);
+    
+    gl_FragColor.rgb *= u_sceneFade;
 }

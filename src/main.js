@@ -11,6 +11,7 @@ import { createParticlePoints } from './assets.js';
 import { raycast, sphereRotationManager, updateCameraRotation, timeManager, clickManager } from './utils.js';
 import { registerChunks } from './shaders/chunks/registerChunks.js';
 import { addStarBackground } from './setup/background.js';
+import { setupIntro } from './setup/intro.js'
 import { setupMobileUI, setupAboutUI, setupSphereInfoUI, showSphereInfo, hideSphereInfo, updateSphereInfoPosition } from './setup/ui.js';
 
 const canvas = document.querySelector('#three');
@@ -19,6 +20,11 @@ const canvas = document.querySelector('#three');
 let scene, camera, renderer, clock, stats, labelRenderer;
 let spheres = [], sphereSpacing = 3.5;
 let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
+let intro = null; // Intro scene
+let showIntro = true; // Intro scene
+let introStartTime = 0; // Intro scene
+const INTRO_DURATION = 11; //Intro scene
+
 
 // ----------------- INIT -----------------
 function init() {
@@ -26,6 +32,7 @@ function init() {
     ({ scene, camera } = setupScene(canvas));
     renderer = setupRenderer(canvas);
     // addLights(scene);
+    renderer.autoClear = false;
 
     // Stats
     if (!import.meta.env.PROD) {
@@ -40,7 +47,7 @@ function init() {
     spheres = createSpheres(sphereSpacing, materials);
     spheres.forEach(s => sphereGroup.add(s));
 
-    // Group particle objects easy click and rotation
+    // Particles
     let particleSphere = spheres.find(s => s.name === 'Particles');
     if (particleSphere) {
         let particleGroup = new THREE.Group();
@@ -72,6 +79,10 @@ function init() {
     // Clock
     clock = new THREE.Clock();
 
+    // Intro
+    intro = setupIntro(renderer);
+    introStartTime = clock.getElapsedTime();
+
     // UI
     setupMobileUI({ timeManager, clock });
     setupAboutUI({ timeManager, clock });
@@ -99,10 +110,57 @@ function init() {
 }
 
 // ----------------- RENDER -----------------
+// Old normal scene render function
+// function render() {
+//     timeManager.update(clock);
+//     if (!import.meta.env.PROD) stats.update();
+//     updateSphereInfoPosition(camera);
+//     labelRenderer.render(scene, camera);
+//     renderer.render(scene, camera);
+// }
+
 function render() {
+    const elapsed = clock.getElapsedTime();
+    renderer.clear();
+
+    // ----------------- INTRO -----------------
+    if (showIntro && intro) {
+        const t = (elapsed - introStartTime) / INTRO_DURATION;
+
+        intro.material.uniforms.u_time.value = elapsed;
+        intro.material.uniforms.u_resolution.value.set(
+            canvas.clientWidth,
+            canvas.clientHeight
+        );
+
+        intro.material.uniforms.u_fade.value = 1.0 - smoothstep(0.7, 1.0, t);
+
+        sharedUniforms.u_sceneFade.value = smoothstep(0.1, 0.7, t); // The 0.1 is when it starts fading in, and 0.7 is when it finishes
+
+        renderer.render(intro.scene, intro.camera);
+
+        if (t >= 1.0) {
+            showIntro = false;
+            sharedUniforms.u_sceneFade.value = 1.0;
+        }
+        return;
+    }
+
+    // ----------------- NORMAL SCENE -----------------
+    const timeSinceIntroEnd = elapsed - (introStartTime + INTRO_DURATION);
+
+    if (timeSinceIntroEnd < 8) { // First 8 seconds after intro
+        sharedUniforms.u_sceneFade.value = 1.0; // Fully visible
+    } else {
+        sharedUniforms.u_sceneFade.value = smoothstep(8, 10, timeSinceIntroEnd);  // Fades out between 8-10s
+    }
+
+    sharedUniforms.u_sceneFade.value = 1.0; 
+
     timeManager.update(clock);
     if (!import.meta.env.PROD) stats.update();
-    updateSphereInfoPosition(camera);
+
+    renderer.clearDepth();
     labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
 }
@@ -161,6 +219,13 @@ function onClickEnd(event) {
     timeManager.resume(clock);
     // if click -> show sphere info
     if(clickManager.stop(clock, event)) raycast.hits[0].object.userData.group ? showSphereInfo(raycast.hits[0].object.userData.group) : showSphereInfo(raycast.hits[0].object);
+}
+
+
+// ----------------- HELPERS (to auslagern, sry) -----------------
+function smoothstep(edge0, edge1, x) {
+    x = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+    return x * x * (3 - 2 * x);
 }
 
 // ----------------- START -----------------
