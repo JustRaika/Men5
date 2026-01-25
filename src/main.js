@@ -159,7 +159,7 @@ function render() {
 
     timeManager.update(clock);
     if (!import.meta.env.PROD) stats.update();
-
+    updateSphereInfoPosition(camera);
     renderer.clearDepth();
     labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
