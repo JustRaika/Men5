@@ -1,0 +1,5 @@
+- Präsi
+- Website
+- Igloo
+- VS code
+- Liveserver
