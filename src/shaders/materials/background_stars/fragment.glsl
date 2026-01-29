@@ -33,7 +33,7 @@ void main() {
 
     // gradient
     float gf = uv.y;
-    vec3 bgColorTop= vec3(0.06, 0.04, 0.1);
+    vec3 bgColorTop= vec3(0.03, 0.01, 0.09);
     vec3 bgColorBottom = vec3(0.01, 0.01, 0.03);
     vec3 bgColor = mix(bgColorBottom, bgColorTop, gf);
 
