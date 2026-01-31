@@ -115,3 +115,9 @@ export const clickManager = {
         return isClick;
     }
 };
+
+// Smoothstep-Funktion für sanfte Übergänge
+export function smoothstep(edge0, edge1, x) {
+    x = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+    return x * x * (3 - 2 * x);
+}

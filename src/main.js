@@ -21,10 +21,10 @@ let scene, camera, renderer, clock, stats, labelRenderer;
 let spheres = [], sphereSpacing = 3.5;
 let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
 let intro = null; // Intro scene
-let showIntro = true; // Intro scene
+let showIntro = false; // Intro scene
 let introStartTime = 0; // Intro scene
 const INTRO_DURATION = 11; //Intro scene
-
+let hintShown = false; // Interaction hint
 
 // ----------------- INIT -----------------
 function init() {
@@ -83,6 +83,18 @@ function init() {
     intro = setupIntro(renderer);
     introStartTime = clock.getElapsedTime();
 
+    // Start Button
+    const startOverlay = document.getElementById('start-overlay');
+    const startBtn = document.getElementById('start-btn');
+
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            startOverlay.style.display = 'none';
+            introStartTime = clock.getElapsedTime();
+            showIntro = true;
+        });
+    }
+
     // UI
     setupMobileUI({ timeManager, clock });
     setupAboutUI({ timeManager, clock });
@@ -121,6 +133,9 @@ function init() {
 
 function render() {
     const elapsed = clock.getElapsedTime();
+        if (!showIntro && introStartTime === 0) {
+        return;
+        }
     renderer.clear();
 
     // ----------------- INTRO -----------------
@@ -139,9 +154,21 @@ function render() {
 
         renderer.render(intro.scene, intro.camera);
 
+        // Interaction hint at end of intro
         if (t >= 1.0) {
             showIntro = false;
             sharedUniforms.u_sceneFade.value = 1.0;
+
+            if (!hintShown) {
+                const hint = document.getElementById('interaction-hint');
+                hint.classList.add('visible');
+
+                setTimeout(() => {
+                    hint.classList.remove('visible');
+                }, 12000);
+
+                hintShown = true;
+            }
         }
         return;
     }
@@ -149,13 +176,7 @@ function render() {
     // ----------------- NORMAL SCENE -----------------
     const timeSinceIntroEnd = elapsed - (introStartTime + INTRO_DURATION);
 
-    if (timeSinceIntroEnd < 8) { // First 8 seconds after intro
-        sharedUniforms.u_sceneFade.value = 1.0; // Fully visible
-    } else {
-        sharedUniforms.u_sceneFade.value = smoothstep(8, 10, timeSinceIntroEnd);  // Fades out between 8-10s
-    }
-
-    sharedUniforms.u_sceneFade.value = 1.0; 
+    sharedUniforms.u_sceneFade.value = 1.0;
 
     timeManager.update(clock);
     if (!import.meta.env.PROD) stats.update();
