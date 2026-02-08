@@ -23,8 +23,11 @@ let mousePos = new THREE.Vector2(), mouseOnCanvas = true;
 let intro = null; // Intro scene
 let showIntro = false; // Intro scene
 let introStartTime = 0; // Intro scene
-const INTRO_DURATION = 11; //Intro scene
+const INTRO_DURATION = 11; // Intro scene
 let hintShown = false; // Interaction hint
+const dpr = Math.min(window.devicePixelRatio, 4); 
+const rt = new THREE.WebGLRenderTarget(canvas.clientWidth * dpr, canvas.clientWidth * dpr, false);
+
 
 // ----------------- INIT -----------------
 function init() {
@@ -32,7 +35,7 @@ function init() {
     ({ scene, camera } = setupScene(canvas));
     renderer = setupRenderer(canvas);
     // addLights(scene);
-    renderer.autoClear = false;
+    // renderer.autoClear = false;
 
     // Stats
     if (!import.meta.env.PROD) {
@@ -134,9 +137,21 @@ function init() {
 function render() {
     const elapsed = clock.getElapsedTime();
         if (!showIntro && introStartTime === 0) {
-        return;
+        // return;
         }
     renderer.clear();
+    renderer.clearDepth();
+    renderer.clear(true, true, true);
+
+    timeManager.update(clock);
+
+    renderer.setRenderTarget(rt);
+    labelRenderer.render(scene, camera);
+    updateSphereInfoPosition(camera);
+    renderer.render(scene, camera);
+
+    renderer.setRenderTarget(null);
+    intro.material.uniforms.u_tMainScene = {value: rt.texture};
 
     // ----------------- INTRO -----------------
     if (showIntro && intro) {
@@ -194,7 +209,11 @@ function onResize() {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     sharedUniforms.u_resolution.value.set(width, height);
-    labelRenderer.setSize(width, height)
+    labelRenderer.setSize(width, height);
+    // Intro camera
+    rt.setSize(width * dpr, height * dpr, false);
+    intro.camera.aspect = width / height;
+    intro.camera.updateProjectionMatrix();
 }
 
 function onScroll() {

@@ -3,12 +3,13 @@ precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform float u_sceneFade;
+uniform sampler2D u_tMainScene;
 
 #include <noisebase>
 #include <simplex3D>
 #include <fbm>
 
-varying vec2 vUv;
+varying vec2 v_uv;
 
 // This function generates a pseudo-random value based on the input coordinates p. 
 // It uses fractal and dot products to create a unique hash value, which can be useful for creating random patterns.
@@ -19,7 +20,7 @@ float hash(vec2 p) {
 }
 
 void main() {
-    vec2 uv = vUv * 2.0 - 1.0;
+    vec2 uv = v_uv * 2.0 - 1.0;
     uv.x *= u_resolution.x / u_resolution.y;
 
     float time = u_time * 0.1;
@@ -46,7 +47,10 @@ void main() {
 
     col *= smoothstep(1.6, 0.8, r); // Vignette
 
-    gl_FragColor = vec4(col, 1.0);
+    vec4 mainScene = texture2D(u_tMainScene, v_uv);
+    vec4 colAl = vec4(col, 1.0);
+
+    gl_FragColor = vec4(mainScene);
 
     gl_FragColor.rgb *= u_sceneFade;
 }

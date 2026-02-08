@@ -8,9 +8,10 @@ export function createIntroMaterial() {    // change function name
         name: 'Intro',                     // change material name
         uniforms: { 
             ...sharedUniforms,
-            u_time: { value: 0 },
-            u_resolution: { value: new THREE.Vector2() },
-            u_fade: { value: 1.0 } 
+            //u_time: { value: 0 },
+            //u_resolution: { value: new THREE.Vector2() },
+            u_fade: { value: 1.0 },
+            u_tMainScene: {}
         },
         vertexShader: vertexShader,
         fragmentShader: fragmentShader
