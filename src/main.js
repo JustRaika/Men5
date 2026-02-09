@@ -95,6 +95,12 @@ function init() {
             startOverlay.style.display = 'none';
             introStartTime = clock.getElapsedTime();
             showIntro = true;
+            // show hint
+            const hint = document.getElementById('interaction-hint');
+            hint.classList.add('visible');
+            setTimeout(() => {
+                hint.classList.remove('visible');
+            }, 12000);
         });
     }
 
@@ -134,71 +140,122 @@ function init() {
 //     renderer.render(scene, camera);
 // }
 
+let introFadeInTime = 5;
+let introTransitionDurration = 3;
+let introTransition = 0;
 function render() {
-    const elapsed = clock.getElapsedTime();
-        if (!showIntro && introStartTime === 0) {
-        // return;
-        }
-    renderer.clear();
-    renderer.clearDepth();
-    renderer.clear(true, true, true);
-
-    timeManager.update(clock);
-
-    renderer.setRenderTarget(rt);
-    labelRenderer.render(scene, camera);
-    updateSphereInfoPosition(camera);
-    renderer.render(scene, camera);
-
-    renderer.setRenderTarget(null);
-    intro.material.uniforms.u_tMainScene = {value: rt.texture};
-
-    // ----------------- INTRO -----------------
-    if (showIntro && intro) {
-        const t = (elapsed - introStartTime) / INTRO_DURATION;
-
-        intro.material.uniforms.u_time.value = elapsed;
-        intro.material.uniforms.u_resolution.value.set(
-            canvas.clientWidth,
-            canvas.clientHeight
-        );
-
-        intro.material.uniforms.u_fade.value = 1.0 - smoothstep(0.7, 1.0, t);
-
-        sharedUniforms.u_sceneFade.value = smoothstep(0.1, 0.7, t); // The 0.1 is when it starts fading in, and 0.7 is when it finishes
-
-        renderer.render(intro.scene, intro.camera);
-
-        // Interaction hint at end of intro
-        if (t >= 1.0) {
-            showIntro = false;
-            sharedUniforms.u_sceneFade.value = 1.0;
-
-            if (!hintShown) {
-                const hint = document.getElementById('interaction-hint');
-                hint.classList.add('visible');
-
-                setTimeout(() => {
-                    hint.classList.remove('visible');
-                }, 12000);
-
-                hintShown = true;
-            }
-        }
-        return;
-    }
-
-    // ----------------- NORMAL SCENE -----------------
-    const timeSinceIntroEnd = elapsed - (introStartTime + INTRO_DURATION);
-
-    sharedUniforms.u_sceneFade.value = 1.0;
 
     timeManager.update(clock);
     if (!import.meta.env.PROD) stats.update();
+    const elapsed = clock.getElapsedTime();
+
+    // render backup texture
+    if (!intro.material.uniforms.u_tMainScene.value) {
+        renderer.setRenderTarget(rt);
+        renderMainScene();
+        renderer.setRenderTarget(null);
+        intro.material.uniforms.u_tMainScene = {value: rt.texture};
+        renderer.clear();
+    }
+
+    // fade in intro
+    if (intro.material.uniforms.u_fadeIn.value <= 1) { 
+        intro.material.uniforms.u_fadeIn.value = (clock.getElapsedTime() / introFadeInTime);
+    }
+
+    // ----------------- INTRO -----------------
+    if (introTransition <= 0 && !showIntro) {
+        renderer.render(intro.scene, intro.camera);
+    }
+
+    // ----------------- TRANSITION -----------------
+    else if (introTransition < 1) {
+        // create texture
+        renderer.setRenderTarget(rt);
+        renderMainScene();
+        renderer.setRenderTarget(null);
+        intro.material.uniforms.u_tMainScene = {value: rt.texture};
+        // transition
+        introTransition = (elapsed - introStartTime) / introTransitionDurration;
+        sharedUniforms.u_sceneFade.value = introTransition;
+        document.documentElement.style.setProperty('--overlay-opacity', introTransition);
+        // if (introTransition >= 1) {console.log("END");} // to track end of transition
+        // render intro
+        renderer.render(intro.scene, intro.camera);
+    }
+    
+    // ----------------- MAIN SCENE -----------------
+    else if (introTransition >= 1) {
+        renderMainScene();
+    }
+    // ----------------- OLD -----------------
+
+    // renderer.clear();
+    // renderer.clearDepth();
+    // renderer.clear(true, true, true);
+
+    
+
+    // ----------------- INTRO -----------------
+    // if (showIntro && intro) {
+    //     const t = (elapsed - introStartTime) / INTRO_DURATION;
+
+    //     // intro.material.uniforms.u_time.value = elapsed;
+    //     // intro.material.uniforms.u_resolution.value.set(
+    //     //     canvas.clientWidth,
+    //     //     canvas.clientHeight
+    //     // );
+
+    //     // intro.material.uniforms.u_fade.value = 1.0 - smoothstep(0.7, 1.0, t);
+
+    //     // sharedUniforms.u_sceneFade.value = smoothstep(0.1, 0.7, t); // The 0.1 is when it starts fading in, and 0.7 is when it finishes
+
+    //     // renderer.render(intro.scene, intro.camera);
+
+    //     // Interaction hint at end of intro
+    //     if (t >= 1.0) {
+    //         // showIntro = false;
+    //         // sharedUniforms.u_sceneFade.value = 1.0;
+
+    //         if (!hintShown) {
+    //             const hint = document.getElementById('interaction-hint');
+    //             hint.classList.add('visible');
+
+    //             setTimeout(() => {
+    //                 hint.classList.remove('visible');
+    //             }, 12000);
+
+    //             hintShown = true;
+    //         }
+    //     }
+    //     return;
+    // }
+
+    // ----------------- NORMAL SCENE -----------------
+    // const timeSinceIntroEnd = elapsed - (introStartTime + INTRO_DURATION);
+
+    // sharedUniforms.u_sceneFade.value = 1.0;
+
+    // timeManager.update(clock);
+    // if (!import.meta.env.PROD) stats.update();
+    // updateSphereInfoPosition(camera);
+    // // renderer.clearDepth();
+    // labelRenderer.render(scene, camera);
+    // renderer.render(scene, camera);
+}
+
+function renderMainScene() {
     updateSphereInfoPosition(camera);
-    renderer.clearDepth();
     labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
+}
+
+function renderIntroScene() {
+    renderer.render(intro.scene, intro.camera);
+}
+
+function transitionScene() {
+    introTransition = (elapsed - introStartTime) / INTRO_DURATION;
 }
 
 // ----------------- EVENTS -----------------

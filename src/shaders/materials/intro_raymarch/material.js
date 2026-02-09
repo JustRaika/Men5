@@ -11,6 +11,7 @@ export function createIntroMaterial() {    // change function name
             //u_time: { value: 0 },
             //u_resolution: { value: new THREE.Vector2() },
             u_fade: { value: 1.0 },
+            u_fadeIn: { value: 0.0 },
             u_tMainScene: {}
         },
         vertexShader: vertexShader,

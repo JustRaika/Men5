@@ -3,6 +3,7 @@ precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform float u_sceneFade;
+uniform float u_fadeIn;
 uniform sampler2D u_tMainScene;
 
 #include <noisebase>
@@ -50,7 +51,10 @@ void main() {
     vec4 mainScene = texture2D(u_tMainScene, v_uv);
     vec4 colAl = vec4(col, 1.0);
 
-    gl_FragColor = vec4(mainScene);
+    float t = smoothstep(0.0, 1.0, u_sceneFade);
+    vec4 SceneTransition = mix(colAl, mainScene, t);
 
-    gl_FragColor.rgb *= u_sceneFade;
+    gl_FragColor = vec4(SceneTransition);
+
+    gl_FragColor.rgb *= u_fadeIn;
 }
